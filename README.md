@@ -1,22 +1,20 @@
 # Keto-CTA audit: reproducibility package
-This repository accompanies the "Letter of Concern" submitted to *JACC: Advances* about the paper [Longitudinal Data From the KETO-CTA Study: Plaque Predicts Plaque, ApoB Does Not, **Soto-Mota et al. (2025)**](https://www.jacc.org/doi/10.1016/j.jacadv.2025.101686).  
+This repository accompanies the "Letter of Concern" submitted to *JACC: Advances* about the paper [Longitudinal Data From the KETO-CTA Study: Plaque Predicts Plaque, ApoB Does Not; **Soto-Mota et al. (2025)**](https://www.jacc.org/doi/10.1016/j.jacadv.2025.101686).  
 It reproduces the key figures, statistical checks, and numerical discrepancies cited in the appendix.
 
-## Quick start
+## Usage
 
-```r
-# In R / RStudio
-source("code/00_download_data.R")
-source("code/01_reproduce_figures.R")
-source("code/02_linear_model_checks.R")
-source("code/03_pct_change_demo.R")
-source("code/04_verify_against_paper.R")
-```
-
-All outputs are written to **figures/reproduced/** (PNGs) or shown in the console.
+1. Clone the repository and open the `keto-cta-audit.Rproj` in RStudio (or set the working directory to the project root in any R session).  
+2. Run the scripts (all scripts are standalone):  
+   - `00_download_clean.R` – downloads/unzips the dataset (or falls back to bundled CSV).  
+   - `01_reproduce_figures.R` – recreates Figures 1A, 1B, and 2F.  
+   - `02_linear_model_checks.R` – assumption checks and diagnostics.  
+   - `03_pct_change.R` – percent change calculations.  
+   - `04_verify_against_paper.R` – compares metrics from paper to dataset to confirm consistency 
+3. All outputs are written to `figures/reproduced/` or printed in the console.
 
 ## Dependencies
-* **R ≥ 4.2**
+* **R ≥ 4.2** (tested with R 4.4.1 on macOS)  
 * CRAN packages: `tidyverse`, `fs`, `performance`, `lmtest`, `see`, `gt`, `patchwork`, `ragg`, `ggtext`
 
 ```r
@@ -61,6 +59,8 @@ This repository also includes the submitted **letter of concern** in two forms:
 - **letter_of_concerns.pdf** – the final rendered version as submitted to the journal.  
 
 The PDF is provided as a frozen, archival copy of what was sent, while the `.qmd` file shows the underlying source used to generate it.
+
+Note: This repository is an independent statistical audit accompanying a letter of concern. It is not affiliated with the original study authors or their institutions.
 
 ## Re-use
 
