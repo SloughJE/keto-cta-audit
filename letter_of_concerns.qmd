@@ -30,29 +30,29 @@ link-citations: true
 
 ---
 
-**Date:** 2025-08-26
+\noindent \today
 
 RE: Post-publication concern regarding "Longitudinal Data From the KETO-CTA Study: Plaque Predicts Plaque, ApoB Does Not" (Soto-Mota *et al.* JACC: Advances, 2025; [doi:10.1016/j.jacadv.2025.101686](https://doi.org/10.1016/j.jacadv.2025.101686))
 
 
-Dear Editors,
+Dear Dr. Silversides,
 
 I am submitting a post-publication concern regarding the article cited above. Because the findings could inform lipid-management decisions, accurate statistical reporting is essential. An independent re-analysis (code and figure checks) identifies material issues that may mislead readers. I respectfully request editorial assessment and correction.
 
 
 Each concern is documented with evidence and reproduced checks in the attached Appendix (with code in the repository).
 
-**Critical issues** 
+**Critical issues**
 
-- **Figure mislabeling and incorrect IQR shading ([C1–C3](#appx-c1))**: Figure 1B’s y-axis is mislabeled (0–10 % vs the correct 0–20 %), halving both absolute plaque burden and within-person change; Figures 1A–1B IQR bands do not match the sample IQR; Figures 2E–2F y-axis mislabeled; should be –1 to 6 (not –1 to 4).
-- **Claims exceed reported models ([C4](#appx-c4))**: The manuscript asserts no association between ApoB/LDL-C (baseline, change, or "exposure") and plaque change (including TPS), yet several required models—particularly Δ-TPS vs LDL-C/ApoB/exposure—are not reported.
-- **Linear-model assumptions violated ([C5](#appx-c5))**: Residual diagnostics show non-linearity, heteroskedasticity, and non-normality in the change-score regressions, contradicting the manuscript’s claim that assumptions were met.
+- **Incorrect Figure scales/IQR** ([C1–C3](#appx-c1)): Fig 1B y-axis is 0–10% while data span 0–20% (halves magnitude); Fig 1A–B IQR band conflicts with the stated sample IQR (lower bound of band dips <0%); Fig 2E–F y-axis should be –1 to 6 (not –1 to 4)
+- **Claims exceed reported models** ([C4](#appx-c4)): "No association" is asserted without reporting key models: Δ-TPS ~ ApoB; Δ-TPS ~ LDL-C; Δ-TPS ~ LDL-exposure
+- **Linear-model assumptions violated** ([C5](#appx-c5)): Change-score regressions fail $\geq 2$ diagnostics (e.g., BP p<0.001; Shapiro–Wilk p<0.001)
 
-**Major issues ([M1–M3](#appx-m1))**
+**Major issues**
 
-(i) **Model strategy & multiplicity**: departure from standard practice[@vanrosendael2021; @han2020], univariable change-scores used instead of baseline-adjusted follow-up (ANCOVA)[@tu2007; @clifton2019]; absence of a prespecified adjustment set/multiplicity plan; predictive wording for associative findings.
-(ii) **Bayes-factor analysis**: Added post-hoc, employs an extra-wide r-scale[@bayesfactor_regressionbf] without standard sensitivity analysis[@kruschke_2021], and overstates BF of 6–10 as posterior probability[@kass_raftery_1995].
-(iii) **Age "mediation"**: Age is a confounder; treating it as a mediator and conditioning on CAC (a downstream variable) is not mediation[@richiardi2013].
+(i) **Model strategy** ([M1](#appx-m1)): Standard progression analyses model follow-up on baseline + covariates (ANCOVA)[@vanrosendael2021; @han2020]. The manuscript instead uses univariable change-score models, which are less interpretable and can be biased.[@tu2007; @clifton2019] Notes on exploratory framing, multiplicity, and "predicts" vs "associative" wording are in Appendix.
+(ii) **Bayes factors** ([M2](#appx-m2)): Not described a priori; uses r-scale = 0.8, described as "moderately informative" yet above the package’s ultrawide setting, without sensitivity analysis, and treats Bayes factors as  posterior probabilities. [@bayesfactor_regressionbf; @kruschke_2021; @kass_raftery_1995]
+(iii) **Age mediation** ([M3](#appx-m3)): Age is a confounder; treating it as a mediator while conditioning on CAC (downstream) is inconsistent with mediation.[@richiardi2013]
 
 *Additional items (O-series)—including the lifetime-exposure unit mismatch and the non-standard percent-change metric—are detailed in the Appendix.*
 
@@ -193,14 +193,15 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 > "Linear models on the primary (NCPV) and secondary outcomes were univariable" (p. 3)
 
-**Evidence (paper).** Methods describe univariable linear models; Table 3 and accompanying text report numerous univariable regressions across outcomes/exposures. The narrative alternates between "predicts/predictor" and "associated with," with a single late "exploratory" caveat. No baseline-adjusted follow-up models (ANCOVA) or prespecified covariate set are reported.
+**Evidence (paper).** Methods describe univariable linear models; Table 3 and accompanying text report numerous univariable regressions across outcomes/exposures. The narrative alternates between "predicts/predictor" and "associated with," with a single late "exploratory" caveat in the conclusion. No baseline-adjusted follow-up models (ANCOVA) or prespecified covariate set are reported.
 
 **Issue (affects interpretation).**
 
 - Primary reliance on univariable change-score models invites confounding (e.g., age, sex) and mathematical coupling with baseline[@tu2007; @clifton2019]; Δ compounds measurement error and reduces power. Baseline imbalance and regression-to-the-mean can inflate, attenuate, or reverse associations.[@chiolero2013]
 - The approach departs from standard practice[@vanrosendael2021; @han2020] for progression analyses , where follow-up is modeled as a function of baseline and covariates (ANCOVA) to obtain clinically interpretable effects at a given starting plaque burden.
 - Multiplicity is not addressed despite many tests; without a plan, familywise/type-I error is inflated and false positives are expected.
-- "Predicts/predictor" implies prognostic (prediction)[@moons2015] standards—multivariable specification, internal validation, calibration/discrimination—which are not presented. If claims are associational, wording should reflect association rather than prediction.
+  - Table 3 has about 19 unique tests; repeating the same panel in two subgroups yields ≈57 tests overall. The text references ΔTPS analyses not shown, so the total is plausibly >70.
+- "Predicts/predictor" implies prognostic (prediction) standards[@moons2015], e.g. multivariable specification, internal validation, calibration/discrimination, which are not presented. If claims are associational, wording should reflect association rather than prediction.
 
 **Requested action.**
 
