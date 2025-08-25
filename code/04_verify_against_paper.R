@@ -20,12 +20,9 @@
 # Purpose: Re-compute key baseline and change statistics from the public CSV
 #          and compare them with the values reported in the manuscript.
 #          Flags mismatches (means, SDs, medians, IQRs) and prints a
-#          YES / NO summary for each metric.
+#          YES / NO summary for each metric. 
+#          Verifies that we have the actual data.
 #
-# Links  : • Supports Results-claim audit in C4 (missing / inconsistent models)
-#          • Directly documents Other issue O4 (impossible IQR for total
-#            cholesterol) and other baseline-table inconsistencies mentioned
-#            under Data / QC items.
 # -----------------------------------------------------------------------------
 
 ##################
