@@ -10,6 +10,8 @@ format:
         \usepackage{float}
         \usepackage{amsmath}
         \usepackage{graphicx}
+        \usepackage[none]{hyphenat}
+        \emergencystretch=3em
         % simple helpers: side-by-side pair and single figure
         \newcommand{\pairfig}[5]{%
           \begin{figure}[H]\centering
@@ -48,8 +50,8 @@ Each concern is documented with evidence and reproduced checks in the attached A
 
 **Major issues ([M1–M3](#appx-m1))**
 
-(i) **Model strategy & multiplicity**: departure from standard practice[@vanrosendael2021; @han2020], univariable change-scores used instead of baseline-adjusted follow-up (ANCOVA)[@vickers2001; @clifton2019]; absence of a prespecified adjustment set/multiplicity plan; predictive wording for associative findings.
-(ii) **Bayes-factor analysis**: Added post-hoc, employs an extra-wide r-scale[@bayesfactor_pkg] without standard sensitivity analysis[@kruschke_2021], and overstates BF of 6–10 as posterior probability[@kass_raftery_1995].
+(i) **Model strategy & multiplicity**: departure from standard practice[@vanrosendael2021; @han2020], univariable change-scores used instead of baseline-adjusted follow-up (ANCOVA)[@tu2007; @clifton2019]; absence of a prespecified adjustment set/multiplicity plan; predictive wording for associative findings.
+(ii) **Bayes-factor analysis**: Added post-hoc, employs an extra-wide r-scale[@bayesfactor_regressionbf] without standard sensitivity analysis[@kruschke_2021], and overstates BF of 6–10 as posterior probability[@kass_raftery_1995].
 (iii) **Age "mediation"**: Age is a confounder; treating it as a mediator and conditioning on CAC (a downstream variable) is not mediation[@richiardi2013].
 
 *Additional items (O-series)—including the lifetime-exposure unit mismatch and the non-standard percent-change metric—are detailed in the Appendix.*
@@ -61,17 +63,17 @@ Each concern is documented with evidence and reproduced checks in the attached A
 2. **Re-analysis & full reporting**: Refit baseline-adjusted (ANCOVA) models for every claimed association, supply coefficients/CIs/diagnostics, run Bayes-factor prior-sensitivity, and address the additional modeling and data issues detailed in the Appendix (M1–M3, O-series).
 3. **Independent statistical review**: Given the scope of figure and modelling issues, I respectfully request that the journal obtain an external statistical review and, depending on the findings, issue the appropriate notice (e.g., Author Correction or stronger).
 
-**Materials provided:** Appendix (PDF, attached); reproducibility repository (code/figures/README): <https://github.com/your-org/keto-cta-review>
+**Materials provided:** Appendix (included below); reproducibility repository: <https://github.com/SloughJE/keto-cta-audit>
 
 I have no conflicts of interest related to this work and am available to provide any additional information.
 
 Sincerely,  
 
-**John Edward Slough II, MBA; MSc (ICTBM); MA (Statistics)**  
-**Independent Statistician & Data Scientist**  
-Email: [your.email@domain.com]
+**John Edward Slough II, MA (Statistics); MBA; MSc (ICTBM)**
 
+**Independent Statistician & Data Scientist**
 
+Email: john@jsdatascience.com
 
 \newpage
 
@@ -195,7 +197,7 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 **Issue (affects interpretation).**
 
-- Primary reliance on univariable change-score models invites confounding (e.g., age, sex) and mathematical coupling with baseline[@vickers2001; @clifton2019]; Δ compounds measurement error and reduces power. Baseline imbalance and regression-to-the-mean can inflate, attenuate, or reverse associations.
+- Primary reliance on univariable change-score models invites confounding (e.g., age, sex) and mathematical coupling with baseline[@tu2007; @clifton2019]; Δ compounds measurement error and reduces power. Baseline imbalance and regression-to-the-mean can inflate, attenuate, or reverse associations.[@chiolero2013]
 - The approach departs from standard practice[@vanrosendael2021; @han2020] for progression analyses , where follow-up is modeled as a function of baseline and covariates (ANCOVA) to obtain clinically interpretable effects at a given starting plaque burden.
 - Multiplicity is not addressed despite many tests; without a plan, familywise/type-I error is inflated and false positives are expected.
 - "Predicts/predictor" implies prognostic (prediction)[@moons2015] standards—multivariable specification, internal validation, calibration/discrimination—which are not presented. If claims are associational, wording should reflect association rather than prediction.
@@ -231,7 +233,7 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 - The paper’s sole rationale for adding a Bayes-factor analysis is that it "adds credence to finding there is no association", is circular: a BF has evidential meaning only when the prior and analysis plan are fixed *a priori*.
 - `regressionBF` run with `rscale = 0.8`, called "moderately informative."
-  - Package defaults: "medium" = 0.354, "wide" = 0.5, "ultrawide" = 0.707; **0.8 is wider than "ultrawide."**[@bayesfactor_pkg]
+  - Package defaults: "medium" = 0.354, "wide" = 0.5, "ultrawide" = 0.707; **0.8 is wider than "ultrawide."**[@bayesfactor_regressionbf]
 - The same extra-wide r-scale is applied to every model without justification 
 - No prior-sensitivity analysis (a standard recommendation for Bayes-factor reporting[@kruschke_2021]) and no indication the BF test was pre-specified.
 - Stating that a BF of 6 to 10 makes the null "6–10 times more likely confuses a Bayes factor (likelihood ratio) with posterior probability. Such a claim requires explicit prior odds.[@kass_raftery_1995]

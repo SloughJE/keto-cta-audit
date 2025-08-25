@@ -31,12 +31,12 @@ install.packages(c("tidyverse","fs","performance","lmtest",
 │  ├─ 01_reproduce_figures.R     # reproduces Fig 1 & Fig 2F   ⇢  C1–C3
 │  ├─ 02_linear_model_checks.R   # diagnostics & table         ⇢  C5
 │  ├─ 03_pct_change_demo.R       # "percent change" demo       ⇢  O1
-│  └─ 04_verify_against_paper.R  # sanity-checks vs paper      ⇢  O4
+│  └─ 04_verify_against_paper.R  # sanity-checks vs paper        
 ├─ data/                         # raw & processed CSVs
 │  └─ raw/
 ├─ figures/
 │  ├─ published                  # screenshots from paper
-│  └─ reproduced/                # PNGs saved by scripts
+│  └─ reproduced/                # saved reproductions of charts
 ├─ letter_of_concerns.qmd        # Quarto source of the letter + appendix
 ├─ references.bib                # BibTeX entries cited in the letter
 └─ keto-cta-audit.Rproj          # RStudio project file
