@@ -1,0 +1,370 @@
+---
+title: ""
+author: ""
+format:
+  pdf:
+    number-sections: false
+    toc: false
+    include-in-header:
+      text: |
+        \usepackage{float}
+        \usepackage{amsmath}
+        \usepackage{graphicx}
+        % simple helpers: side-by-side pair and single figure
+        \newcommand{\pairfig}[5]{%
+          \begin{figure}[H]\centering
+          \begin{minipage}{#4\linewidth}\includegraphics[width=\linewidth]{#1}\end{minipage}\hfill
+          \begin{minipage}{#5\linewidth}\includegraphics[width=\linewidth]{#2}\end{minipage}
+          \caption{#3}\end{figure}}
+        \newcommand{\singlefig}[3]{%
+          \begin{figure}[H]\centering
+          \includegraphics[width=#3\linewidth]{#1}
+          \caption{#2}\end{figure}}
+fontsize: 11pt
+geometry: margin=1in
+csl: https://www.zotero.org/styles/american-medical-association
+bibliography: references.bib
+link-citations: true
+
+---
+
+**Date:** 2025-08-26
+
+RE: Post-publication concern regarding "Longitudinal Data From the KETO-CTA Study: Plaque Predicts Plaque, ApoB Does Not" (Soto-Mota *et al.* JACC: Advances, 2025; [doi:10.1016/j.jacadv.2025.101686](https://doi.org/10.1016/j.jacadv.2025.101686))
+
+
+Dear Editors,
+
+I am submitting a post-publication concern regarding the article cited above. Because the findings could inform lipid-management decisions, accurate statistical reporting is essential. An independent re-analysis (code and figure checks) identifies material issues that may mislead readers. I respectfully request editorial assessment and correction.
+
+
+Each concern is documented with evidence and reproduced checks in the attached Appendix (with code in the repository).
+
+**Critical issues** 
+
+- **Figure mislabeling and incorrect IQR shading ([C1–C3](#appx-c1))**: Figure 1B’s y-axis is mislabeled (0–10 % vs the correct 0–20 %), halving both absolute plaque burden and within-person change; Figures 1A–1B IQR bands do not match the sample IQR; Figures 2E–2F y-axis mislabeled; should be –1 to 6 (not –1 to 4).
+- **Claims exceed reported models ([C4](#appx-c4))**: The manuscript asserts no association between ApoB/LDL-C (baseline, change, or "exposure") and plaque change (including TPS), yet several required models—particularly Δ-TPS vs LDL-C/ApoB/exposure—are not reported.
+- **Linear-model assumptions violated ([C5](#appx-c5))**: Residual diagnostics show non-linearity, heteroskedasticity, and non-normality in the change-score regressions, contradicting the manuscript’s claim that assumptions were met.
+
+**Major issues ([M1–M3](#appx-m1))**
+
+(i) **Model strategy & multiplicity**: departure from standard practice[@vanrosendael2021; @han2020], univariable change-scores used instead of baseline-adjusted follow-up (ANCOVA)[@vickers2001; @clifton2019]; absence of a prespecified adjustment set/multiplicity plan; predictive wording for associative findings.
+(ii) **Bayes-factor analysis**: Added post-hoc, employs an extra-wide r-scale[@bayesfactor_pkg] without standard sensitivity analysis[@kruschke_2021], and overstates BF of 6–10 as posterior probability[@kass_raftery_1995].
+(iii) **Age "mediation"**: Age is a confounder; treating it as a mediator and conditioning on CAC (a downstream variable) is not mediation[@richiardi2013].
+
+*Additional items (O-series)—including the lifetime-exposure unit mismatch and the non-standard percent-change metric—are detailed in the Appendix.*
+
+
+**Requested editorial actions**  
+
+1. **Figure corrections**: Replot Figures 1A–1B and 2E–2F with correct y-axes and IQR shading; verify all figure captions against the underlying data.
+2. **Re-analysis & full reporting**: Refit baseline-adjusted (ANCOVA) models for every claimed association, supply coefficients/CIs/diagnostics, run Bayes-factor prior-sensitivity, and address the additional modeling and data issues detailed in the Appendix (M1–M3, O-series).
+3. **Independent statistical review**: Given the scope of figure and modelling issues, I respectfully request that the journal obtain an external statistical review and, depending on the findings, issue the appropriate notice (e.g., Author Correction or stronger).
+
+**Materials provided:** Appendix (PDF, attached); reproducibility repository (code/figures/README): <https://github.com/your-org/keto-cta-review>
+
+I have no conflicts of interest related to this work and am available to provide any additional information.
+
+Sincerely,  
+
+**John Edward Slough II, MBA; MSc (ICTBM); MA (Statistics)**  
+**Independent Statistician & Data Scientist**  
+Email: [your.email@domain.com]
+
+
+
+\newpage
+
+# Appendix
+
+## Summary Table of Critical and Major Issues
+
+\begingroup\footnotesize
+| ID   | Area                         | Core issue                                                     | Severity | Ref.                          |
+|------|-----------------------------|----------------------------------------------------------------|----------|-------------------------------|
+| C1–C3| Figures                      | Incorrect y-axis (Fig 1B, 2E–F); incorrect IQR shading (1A–B)  | Critical | [C1](#appx-c1), [C2](#appx-c2), [C3](#appx-c3) |
+| C4   | Results claims               | Claims exceed reported models; Δ-TPS models missing            | Critical | [C4](#appx-c4)                |
+| C5   | Model diagnostics            | Linear‐model assumptions violated                              | Critical | [C5](#appx-c5)                |
+| M1   | Model strategy & multiplicity| Univariable Δ focus; no multiplicity; predictive wording       | Major    | [M1](#appx-m1)                |
+| M2   | Methods (Bayes)              | Multiple BF issues (r-scale, no sensitivity, misinterpretation)| Major    | [M2](#appx-m2)                |
+| M3   | Age "mediation" analysis     | Age is a confounder; CAC downstream of exposure                | Major    | [M3](#appx-m3)                |
+
+\endgroup
+
+**Data provenance.** Individual-level plaque metrics used for reproductions were obtained from the Citizen Science Foundation keto-CTA repository (accessed Aug 23, 2025). [@csf_ketocta]
+
+### Critical (C1–C5)
+
+C1 and C2 reference panels from *Figure 1 Individual Change in Plaque Volume* of the published article (p. 6); left-hand images are published panels, right-hand images are reproductions.
+
+#### C1 — Figure 1B: y-axis mislabeled {#appx-c1}
+
+\pairfig{figures/published//Figure1B.jpg}{figures/reproduced/Figure1B.png}{Left: published (axis 0–10\%; IQR band mismatched). Right: reproduced (axis 0–20\%; IQR \(\approx\) 0.3\%–1.7\%).}{0.45}{0.48}
+
+The published panel’s y-axis label is inconsistent with the plotted scale. This reproduction uses the correct 0–20\% range. The underlying data are unchanged.
+
+**Requested correction.** Update the Figure 1B y-axis label to **0–20\%**.
+
+
+#### C2 — Figures 1A & 1B: shaded IQR band incorrect; caption unclear {#appx-c2}
+
+\pairfig{figures/published//Figure1A.jpg}{figures/reproduced/Figure1A.png}{Left: published (IQR shading does not match the sample IQR). Right: reproduced (median \(\approx\) 18.9 mm\(^3\); IQR \(\approx\) 9.3–47.0 mm\(^3\)).}{0.47}{0.51}
+
+The shaded band is described as the interquartile range (IQR) of **change** (median 0.8\%, IQR 0.3\%–1.7\%). If so, the band should lie entirely **above 0\%** (the 25th percentile is 0.3\%). In the published panels the band is anchored at 0\% in Figure 1A and dips **below 0\%** in Figure 1B, which is inconsistent with the reported quantiles and cannot occur if the band truly represents the IQR of paired change.
+In both panels, the published shaded band differs materially from the reproduced band that plots the IQR of *paired* within-person change: the published band is anchored at (1A) or dips below (1B) 0%, whereas the reproduced band lies entirely above 0% and matches the stated quantiles. This indicates the published shading is not the IQR of paired change.
+
+
+**Requested correction.**
+
+1. Re-compute and plot the **interquartile range of paired within-person change** from baseline to 1 year (25th–75th percentiles).
+2. Revise the caption for both panels to read: "The red line shows the median paired change from baseline to 1 year; the shaded band shows the interquartile range (25th–75th percentiles) of paired change from baseline to 1 year."
+
+
+#### C3 — Figures 2D–2F: y-axis mislabeled {#appx-c3}
+
+\pairfig{figures/published//Figure2F.jpg}{figures/reproduced/Figure2F.png}{Left: published (y-axis **labeled** \(-1\)–4 while the plotted range/ticks correspond to **\(-1\)–6**). Right: reproduced (axis \(-1\)–6); OLS \(lm(y \sim x)\) line with SE band.\label{fig:c3f}}{0.47}{0.47}
+
+Similar to Figure 1B, Panel 2F published panel's y-axis label is inconsistent with the plotted scale. The label indicates \(-1\)–4, but the scale used is \(-1\)–6 (all data are shown). The same mislabeling is visible in panels **2D** and **2E** (not shown). This can mislead readers about the plotted domain and relative spread.
+
+**Requested correction.**  
+Correct the y-axis **label** to reflect the actual plotted range in each panel (e.g., \(-1\)–6 ).  
+
+*Panels 2D and 2E exhibit the same label–range mismatch; 2F is shown as the example.*
+
+#### C4 — Conclusions exceed support from reported models {#appx-c4}
+
+**Quoted claims (paper):**
+"In lean metabolically healthy people on KD, neither total exposure nor changes in baseline levels of ApoB and LDL-C were associated with changes in plaque." (p. 1)
+
+"… no association between NCPV vs LDL-C or ApoB and **TPS** vs LDL-C or ApoB." (p. 6)
+
+"changes in and baseline levels of ApoB were not associated with changes in NCPV or TPS as measured by CCTA." (p. 8)
+
+These statements bundle multiple non-equivalent associations: change vs. exposure vs. baseline level as predictors, and NCPV and TPS as separate outcomes, each requiring its own prespecified model; several of those models are not reported.
+The audit table below maps each claim to the model it implies and whether it was reported.
+
+**Claim → model → reported? (audit checklist):**
+
+\begingroup\small
+| Abstract/Results component | Required model (example) | Reported in paper? |
+|---|---|---|
+| Δ-plaque vs ΔLDL-C | Δ-NCPV ~ Δ-LDL-C | Not reported |
+| Δ-plaque vs LDL-C **exposure** | Δ-NCPV ~ LDL-C exposure | Not reported |
+| Δ-plaque vs LDL-C **baseline** | Δ-NCPV ~ LDL-C baseline | Not reported |
+| Δ-plaque vs ΔApoB | Δ-NCPV ~ Δ-ApoB | Reported |
+| Δ-plaque vs ApoB **exposure** | Δ-NCPV ~ ApoB exposure | Not reported |
+| Δ-plaque vs ApoB **baseline** | Δ-NCPV ~ ApoB baseline | Reported |
+| **Δ-TPS** vs LDL-C / ApoB / exposure | Δ-TPS ~ (LDL-C or ApoB or exposure) | **Not reported** |
+\endgroup
+
+A review of the paper’s Model Results table confirms these omissions: the Model Results table lists selected Δ-NCPV regressions but **does not** include any Δ-TPS regressions or models using LDL-C baseline or ApoB exposure as independent variables. They are also not present in any supplementary material.
+
+\singlefig{figures/published//Table3_caption.png}{C4a. "Model Results" / from Table 3 excerpt — no $\Delta$TPS models are reported.}{0.9}
+
+**Requested fix:** Provide fitted models (coefficients, CIs, diagnostics) for all claimed relationships—especially **Δ-TPS** vs LDL-C/ApoB/exposure—or amend the conclusions.
+
+#### C5 — Model assumptions: diagnostics indicate violations {#appx-c5}
+
+**Scope.** Only plaque metrics were available to audit (CAC, NCPV, TPS, PAV; see **Data provenance**), so lipid/demographic covariates (ApoB, LDL-C, age, sex, BP) were not available. Four univariable change-score models were tested:
+$\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\sim$ PAV$_{bl}$, $\Delta$NCPV $\sim$ TPS$_{bl}$.
+
+**Quoted claim (paper).** "All linear model assumptions were corroborated with the R function `performance::check_model`." (p. 3)
+
+**Objective diagnostics.** Linearity (Ramsey RESET), constant variance (Breusch–Pagan), residual normality (Shapiro–Wilk); $\alpha=0.05$.
+
+\singlefig{figures/reproduced/LM_assumptions.png}{C5a. Objective tests for four $\Delta$NCPV models — each fails $\ge$2 assumptions.}{0.95}
+
+**Results of diagnostics.** Breusch–Pagan rejected homoscedasticity in **all four** models (p < 0.001); Shapiro–Wilk rejected residual normality in **all four** (p ≤ 0.001); RESET indicated misspecification for $\Delta$NCPV $\sim$ CAC$_{bl}$ (p = 0.031) and was borderline for $\Delta$NCPV $\sim$ PAV$_{bl}$ (p = 0.050). **Each model fails ≥2 assumption checks.** Accordingly, the blanket statement that "all assumptions were corroborated" is **not supported** for these models.
+
+**Generalizability.** These checks cover plaque-only change-score regressions because of data availability. Given the similar functional form and residual structure, **similar violations are plausible** for other reported change-score regressions (e.g., with ApoB/LDL-C), but cannot be verified without those covariates.
+
+**Author response (post-publication).** In response to a letter, the authors stated that they reran all models using robust linear regression (`MASS::rlm`) and that estimates were "consistent" with the published results [@soto2025reply].
+
+**Interpretation.** M-estimator "robust regression" (e.g., `MASS::rlm`) downweights outliers/heavy tails but does **not** remedy **nonlinearity**, **heteroskedasticity**, or **non-normal residuals**; it also does not supply standard p-values by default. Appropriate fixes require model specification (e.g., splines/transformations) and, where variance is non-constant, **heteroskedasticity-consistent (HC/sandwich) SEs**. Robust regression alone does not address the violations indicated here. [@foxweisberg2019; @venables2002]
+
+**Requested fix.** Report assumption checks for **all** fitted models; where violations occur, fit appropriately specified models (e.g., baseline-adjusted follow-up with nonlinear terms; transformations where justified; HC/sandwich SEs) rather than relying solely on robust regression, and include diagnostics with the corrected analyses.
+
+
+### Major (M1–M3)
+
+#### M1 — Model strategy, multiplicity, and claim wording {#appx-m1}
+
+> "Linear models on the primary (NCPV) and secondary outcomes were univariable" (p. 3)
+
+**Evidence (paper).** Methods describe univariable linear models; Table 3 and accompanying text report numerous univariable regressions across outcomes/exposures. The narrative alternates between "predicts/predictor" and "associated with," with a single late "exploratory" caveat. No baseline-adjusted follow-up models (ANCOVA) or prespecified covariate set are reported.
+
+**Issue (affects interpretation).**
+
+- Primary reliance on univariable change-score models invites confounding (e.g., age, sex) and mathematical coupling with baseline[@vickers2001; @clifton2019]; Δ compounds measurement error and reduces power. Baseline imbalance and regression-to-the-mean can inflate, attenuate, or reverse associations.
+- The approach departs from standard practice[@vanrosendael2021; @han2020] for progression analyses , where follow-up is modeled as a function of baseline and covariates (ANCOVA) to obtain clinically interpretable effects at a given starting plaque burden.
+- Multiplicity is not addressed despite many tests; without a plan, familywise/type-I error is inflated and false positives are expected.
+- "Predicts/predictor" implies prognostic (prediction)[@moons2015] standards—multivariable specification, internal validation, calibration/discrimination—which are not presented. If claims are associational, wording should reflect association rather than prediction.
+
+**Requested action.**
+
+1. **Clarify analytic aim**: state consistently whether the analyses are predictive or associative in the Title, Abstract, Methods, and Results.
+
+2. **If association is the aim**:
+    - Prespecify a primary adjustment set (baseline NCPV/TPS/CAC, age, sex).
+    - Report baseline-adjusted follow-up models (ANCOVA) as the main analysis with effect estimates + 95 % CIs; move univariable Δ-models to the Supplement.
+    - Provide full diagnostics (linearity, residuals, influence; see C5).
+    - Add a post-hoc power (precision) analysis so readers can judge whether the study could detect clinically meaningful ApoB effects (e.g., ≥ 5 mm³ NCPV or ≥ 0.5 % PAV change).
+
+3. **If prediction is the aim**:
+    - Present a multivariable prognostic model with internal validation (bootstrap or k-fold).
+    - Report calibration and discrimination; do not rely on univariable screens as evidence.
+
+4. **Multiplicity control**: specify a strategy (e.g., Holm or FDR) across related tests and emphasise effect estimates with uncertainty rather than dichotomous “significance.”
+
+
+#### M2 — Bayes-factor analysis: extra-wide r-scale, no sensitivity, misinterpreted evidence {#appx-m2}
+
+**Quoted claims (paper).**
+
+> "the addition of Bayesian inference adds credence to finding that there is no association between NCPV vs LDL-C or ApoB and TPS vs LDL-C or ApoB." (p. 6)
+
+> "Bayes factors were calculated using BayesFactor::regressionBF with default settings and an rscale value of 0.8 to contrast a moderately informative prior with a conservative distribution width" (p. 3)
+
+> "these data suggest it is 6 to 10 times more likely that the hypothesis of no association between these variables (the null) is true as compared to the alternative." (p. 6)
+
+**Issue (multiple)**
+
+- The paper’s sole rationale for adding a Bayes-factor analysis is that it "adds credence to finding there is no association", is circular: a BF has evidential meaning only when the prior and analysis plan are fixed *a priori*.
+- `regressionBF` run with `rscale = 0.8`, called "moderately informative."
+  - Package defaults: "medium" = 0.354, "wide" = 0.5, "ultrawide" = 0.707; **0.8 is wider than "ultrawide."**[@bayesfactor_pkg]
+- The same extra-wide r-scale is applied to every model without justification 
+- No prior-sensitivity analysis (a standard recommendation for Bayes-factor reporting[@kruschke_2021]) and no indication the BF test was pre-specified.
+- Stating that a BF of 6 to 10 makes the null "6–10 times more likely confuses a Bayes factor (likelihood ratio) with posterior probability. Such a claim requires explicit prior odds.[@kass_raftery_1995]
+
+**Requested action**
+
+1. Re-compute Bayes factors with default r-scales (0.354, 0.5, 0.707) **and** \(r = 0.8\); report all values.
+2. Justify the prior for each model or adopt a standard scale.
+3. Indicate whether the BF analysis (and r-scale choice) was pre-specified; if post-hoc, label it exploratory and provide the rationale for adding it
+4. Revise manuscript text to avoid equating BF with the probability the null is true unless prior odds are specified.  
+
+#### M3 — Age mediation analysis: causal language and improper adjustment {#appx-m3}
+
+\singlefig{figures/published//Age_mediation_bp.png}{M2a. Table 3 (excerpt) from the published article showing the sequential models ("univariable," "+ age," "+ baseline CAC").}{0.70}
+
+**Quoted claim (paper)**: "There was no association between LDL-C exposure while on a KD (mean 5.7 years) and NCPV or TPS (Figure 2G, Table 3). Estimated lifetime LDL-C exposure was only a significant predictor of final NCPV in the univariable analysis but lost significance when age was included as a covariate (Table 3). Both age and lifetime LDL-C exposure lost significance when baseline CAC was included in the model (Table 3)." (p. 4)
+
+**Issue (Major).**  
+Age is a **confounder** (not caused by LDL), and baseline **CAC** is plausibly **downstream** of lifetime LDL exposure. Conditioning on CAC when asking about the *total* effect of lifetime LDL on NCPV blocks the LDL → CAC → NCPV pathway and yields only a **direct effect**; it does not constitute a mediation analysis[@richiardi2013]. No mediator model or **indirect effect with CI** was reported. Given that the paper’s lifetime-LDL metric embeds age (see M3), collinearity is expected and "loss of significance" is not evidence of no association.
+
+**Requested fix.**  
+Specify the causal estimand with a DAG. If mediation is intended: fit **Mediator ~ Exposure + Age** and **Outcome ~ Exposure + Mediator + Age** and report **indirect/direct/total** effects with CIs. If the target is the **total effect** of lifetime LDL on NCPV, do **not** adjust for baseline CAC; report models with/without age (confounder), with diagnostics and collinearity checks.
+
+
+
+\newpage
+
+### Other — Additional analysis & reporting issues {#appx-other}
+
+\begingroup\small
+| ID | Sev. | Location | Issue (concise) | Ref. | Requested action |
+|----|------|----------|-----------------|------|------------------|
+| O1 | Other | Methods        | Percent change reported as **ratio of medians**, not per-participant | [§O1](#O1) | Provide per-subject % change (or both) with summary + CI |
+| O2 | Other | Measurements   | "Lifetime LDL-C exposure" mixes time units (days + years) | [§O2](#O2) | Recalculate exposure with a single time unit |
+| O3 | Other | Data/QC        | **Inconsistent durations** distort exposure denominators | [§O3](#O3) | Audit durations; rerun exposure-based analyses |
+| O4 | Other | Table 1        | **Impossible IQR** for total cholesterol (301–337 mg/dL; median = 338 mg/dL) | [§O4](#O4) | Correct IQR; verify all baseline stats & units |
+
+\endgroup
+
+
+
+#### O1 — Percent-change metric: ratio of medians, not per-subject {#O1}
+
+> "The median change in NCPV was 18.9 mm3 (IQR: 9.3-47.0 mm3) and the median change in PAV was 0.8% (IQR: 0.3%-1.7%). Compared to baseline, these represent a **43% and 50% change**, respectively." (p. 4)
+
+**Issue**  
+
+The paper’s "43%" (NCPV) and "50 %" (PAV) values use a **non-standard percent-change metric**, a *ratio of medians*:
+
+$$
+\frac{\operatorname{median}(\Delta)}{\operatorname{median}(\text{baseline})}\times100\%.
+$$
+
+This definition differs from the customary per-participant percent change and can under- or over-state the typical effect (see table below).
+
+| Outcome | Ratio-of-medians | Median % change (per subject) | Mean % change |
+|:--|--:|--:|--:|
+| NCPV | 43 % | 49.2 % | 81.4 % |
+| PAV  | 50 % | 47.3 % | 80.7 % |
+
+*(participants with baseline = 0 excluded from % change calculations)*
+
+**Requested action**
+
+1. Report per-subject percent change  
+
+   $$
+   \%\Delta X_i \;=\; \frac{X_{1\text{y},i}-X_{bl,i}}{X_{bl,i}}\times100
+   $$
+
+   with median, IQR, and 95 % CI.
+2. Clarify that the published 43 % / 50 % are ratios of medians.
+3. State how zero baselines were handled.
+
+
+#### O2 — Exposure metric: construction and units inconsistent {#O2}
+
+**Quoted method (paper).** "LDL-C exposure on a KD was calculated by summing the products of the reported days on a KD prior to study commencement and baseline LDL-C on a KD plus the study follow-up days by their final LDL-C. Estimated **lifelong** LDL-C additionally included the product of **age** upon commencing a KD and pre-KD LDL-C." (p. 3)
+
+$$
+\mathrm{LDL}_{\mathrm{KD\text{-}exp}}
+= Days_{\mathrm{KD}}\cdot \mathrm{LDL}_{\mathrm{baseline}}
++ Days_{\mathrm{FU}}\cdot \mathrm{LDL}_{\mathrm{final}}
+$$
+*Unit:* mg·day/dL
+
+$$
+\mathrm{LifeLDL}_{\mathrm{exp}}
+= \mathrm{LDL}_{\mathrm{KD\text{-}exp}}
++ Age_{\mathrm{KD\text{-}start}}\cdot \mathrm{LDL}_{\mathrm{preKD}}
+$$
+*Unit (as written):* dimensionally inconsistent
+
+**Issue**
+
+- **Dimensional inconsistency:** the "lifetime" sum mixes **days** and **years**; these are not commensurate.
+- **Scale distortion:** the pre-KD term is ~**1/365** the magnitude of the day-based terms unless age is converted; if converted to days, the term becomes a near-linear **age surrogate** times one LDL value.
+- **Interpretability:** model coefficients are not in a single unit (mg·day/dL **+** mg·year/dL), hindering effect-size meaning and comparisons.
+
+**Requested fix.** Use a single time unit (e.g., convert all time to **days** and label units), report a sensitivity **dropping the pre-KD term**, and consider also reporting the **time-weighted mean LDL**:
+$$
+\overline{\mathrm{LDL}}=\frac{\sum_{i}\mathrm{LDL}_{i}\,\Delta t_{i}}{\sum_{i}\Delta t_{i}}
+$$
+alongside total duration.
+
+
+#### O3 — Exposure durations inconsistent across study {#O3}
+
+**Issue**
+
+- Table 1 KD duration: **1,642.7 days (~4.5 y)**.
+- Table 3 caption: "LDL-C exposure … mean **5.7 y**."
+- Abstract median KD duration: **1,302 days**
+
+Discrepant durations feed into exposure metrics and bias effect estimates.
+
+**Requested action**
+
+1. Audit raw duration variables; reconcile KD start date, follow-up days, and exposure windows.
+2. Re-calculate exposure metrics (e.g., time-weighted mean LDL) and rerun analyses with corrected durations.
+3. Report both mean and median durations in consistent units (days or years).
+
+#### O4 — Table 1 Baseline Characteristics incorrect IQR {#O4}
+
+> "Total cholesterol (mg/dL) 355.1 ± 89.9; median 338 (IQR 301–**337**)" — Table 1
+
+**Issue**  
+The reported median (338 mg/dL) lies **outside** the stated IQR (301–337 mg/dL), which is mathematically impossible.
+
+**Requested action**  
+Correct the IQR and verify all baseline statistics (units, rounding, transcription).
+
+
+\newpage
+
+## References
