@@ -196,7 +196,7 @@ m_cac   <- lm(delta_NCPV ~ V1_CAC, data = df)
 # ---- diagnostics as patchwork ----
 cm_list <- performance::check_model(m_cac)   # list
 p        <- plot(cm_list) + plot_annotation(
-  title = "ΔNCPV ~ CAC_bl — diagnostic checks",
+  title = "ΔNCPV ~ CAC_bl",
   theme = theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 )
 
@@ -204,7 +204,7 @@ p        <- plot(cm_list) + plot_annotation(
 out_path <- "figures/reproduced/checkmodel_deltaNCPV_CAC.png"
 ggsave(out_path, p,
        device = ragg::agg_png,
-       width = 10, height = 8, units = "in",
+       width = 8, height = 10, units = "in",
        dpi = 800, bg = "white")
 
 message("Diagnostic grid saved to: ", out_path)
