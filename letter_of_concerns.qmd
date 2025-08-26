@@ -161,19 +161,19 @@ The audit table below maps each claim to the model it implies and whether it was
 | **$\Delta$TPS** vs LDL\text{-}C / ApoB / exposure | $\Delta$TPS $\sim$ (LDL\text{-}C or ApoB or exposure) | **Not reported** |
 \endgroup
 
-A review of the paper’s Model Results table confirms these omissions: the Model Results table lists selected $\Delta$NCPV regressions but does not include any $\Delta$TPS regressions or models using LDL-C baseline or ApoB exposure as independent variables. They are also not present in any supplementary material.
+A review of Table 3 Model Results confirms these omissions: it reports selected $\Delta$NCPV regressions but includes no models with $\Delta$TPS as the outcome and no models using LDL-C baseline or ApoB exposure as independent variables. These models are also absent from the supplementary material.
 
 \singlefig{figures/published//Table3_caption.png}{C4a. Table 3 Model Results — no $\Delta$TPS models are reported.}{0.9}
 
 **Requested correction:** Provide fitted models (coefficients, CIs, diagnostics) for all claimed relationships, especially $\Delta$TPS vs LDL-C/ApoB/exposure, or amend the conclusions.
 
-##### C4.b — ΔTPS result under the stated lm does not reproduce the paper’s claim.
+##### C4.b — $\Delta$TPS$\sim$CAC: claimed association not reproduced
 
 **Quoted claim (paper).** 
 
 > "(C, F) Only CAC is associated with changes in NCPV and TPS." (p. 7, Figure 2 caption)
 
-Reproducing the stated model (univariable `lm`) does not support an association: $\Delta$TPS $\sim$ CAC$_{bl}$ gives $\beta\ = 0.0017$ (95% CI: −0.0004 to 0.0038), $P = 0.11$.
+Reproducing the stated model univariable linear model does not support an association: $\Delta$TPS $\sim$ CAC$_{bl}$ gives $\beta\ = 0.0017$ (95% CI: −0.0004 to 0.0038), $P = 0.11$.
 Additionally:
 
 - $\Delta\mathrm{TPS}$ has a point mass at $0$ with small $\pm$ values (58/100 zeros).
@@ -181,7 +181,7 @@ Additionally:
 - Zero probability varies with baseline CAC: test of $\Pr(\Delta\mathrm{TPS}=0 \mid \mathrm{CAC}_{\mathrm{bl}})$ via logistic LRT, $\chi^2_{(1)}=5.23$, $P=0.022$.
 - A two-part (hurdle-at-zero) analysis or other re-specification is warranted.[@farewell2017]
 
-**Requested correction:** amend the TPS claim, or provide supporting analyses with appropriate modeling and full reporting (model specification, coefficients with 95% CIs, and diagnostics).
+**Requested correction:** amend the TPS claim, or provide supporting analyses with appropriate modeling (see [M1](#appx-m1)) and full reporting (model specification, coefficients with 95% CIs, and diagnostics).
 
 
 
@@ -212,7 +212,7 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 **Assessment.** M-estimator robust regression (e.g., `MASS::rlm`) downweights outliers/heavy tails but does not remedy nonlinearity, heteroskedasticity, or non-normal residuals (no HC/sandwich SEs were used); it also does not supply standard p-values by default. Appropriate fixes require model specification (e.g., splines/transformations) and, where variance is non-constant, heteroskedasticity-consistent (HC/sandwich) SEs. Robust regression alone does not address the violations indicated here. [@foxweisberg2019; @venables2002]
 
-**Requested correction.** Report assumption checks for all fitted models; where violations occur, fit appropriately specified models (e.g., baseline-adjusted follow-up with nonlinear terms; splines/transformations where justified; HC/sandwich SEs) rather than relying solely on robust regression, and include diagnostics with the corrected analyses.
+**Requested correction.** Report assumption checks for all fitted models; where violations occur, fit appropriately specified models (e.g., baseline-adjusted follow-up (see [M1](#appx-m1)) with nonlinear terms; splines/transformations where justified; HC/sandwich SEs) rather than relying solely on robust regression, and include diagnostics with the corrected analyses.
 
 
 ### Major (M1–M3)
