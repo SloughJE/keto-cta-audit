@@ -43,9 +43,9 @@ Each concern is documented with evidence and reproduced checks in the attached A
 
 **Critical issues**
 
-- **Incorrect Figure scales/IQR** ([C1–C3](#appx-c1)): Fig 1B y-axis is 0–10% while data span 0–20% (halves magnitude); Fig 1A–B IQR band conflicts with the stated sample IQR (lower bound of band dips <0%); Fig 2E–F y-axis should be –1 to 6 (not –1 to 4)
-- **Claims exceed reported models** ([C4](#appx-c4)): "No association" is asserted without reporting key models: $\Delta$TPS $\sim$ ApoB; $\Delta$TPS $\sim$ LDL\text{-}C; $\Delta$TPS $\sim$ LDL\text{-}C exposure
-- **Linear-model assumptions violated** ([C5](#appx-c5)): Change-score regressions fail $\ge 2$ diagnostics (e.g., BP $P\le 0.001$; Shapiro–Wilk $P\le 0.001$)
+- **Incorrect Figure scales/IQR** ([C1–C3](#appx-c1)): Fig 1B y-axis is 0–10% while data span 0–20% (halves magnitude); Fig 1A–B IQR band conflicts with the stated sample IQR (lower bound of band dips <0%); Fig 2E–F y-axis should be –1 to 6 (not –1 to 4).
+- **Claims exceed reported models** ([C4](#appx-c4)): "No association" is asserted without reporting key models: $\Delta$TPS $\sim$ ApoB; $\Delta$TPS $\sim$ LDL\text{-}C; $\Delta$TPS $\sim$ LDL\text{-}C exposure.
+- **Linear-model assumptions violated** ([C5](#appx-c5)): Change-score regressions fail $\ge 2$ diagnostics (Breusch–Pagan $P\le 0.001$; Shapiro–Wilk $P\le 0.001$) despite "assumptions...corroborated".
 
 **Major issues**
 
