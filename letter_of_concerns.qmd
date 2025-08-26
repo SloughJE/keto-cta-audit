@@ -167,6 +167,23 @@ A review of the paper’s Model Results table confirms these omissions: the Mode
 
 **Requested correction:** Provide fitted models (coefficients, CIs, diagnostics) for all claimed relationships, especially $\Delta$TPS vs LDL-C/ApoB/exposure, or amend the conclusions.
 
+##### C4.b — ΔTPS result under the stated lm does not reproduce the paper’s claim.
+
+**Quoted claim (paper).** 
+
+> "(C, F) Only CAC is associated with changes in NCPV and TPS." (p. 7, Figure 2 caption)
+
+Reproducing the stated model (univariable `lm`) does not support an association: $\Delta$TPS $\sim$ CAC$_{bl}$ gives $\beta\ = 0.0017$ (95% CI: −0.0004 to 0.0038), $P = 0.11$.
+Additionally:
+
+- $\Delta\mathrm{TPS}$ has a point mass at $0$ with small $\pm$ values (58/100 zeros).
+- Excess-zero test under a rounded-Gaussian *lm*: $z=5.54$, $P_{\text{boot}}<0.001$ (analytic $P<0.001$).
+- Zero probability varies with baseline CAC: test of $\Pr(\Delta\mathrm{TPS}=0 \mid \mathrm{CAC}_{\mathrm{bl}})$ via logistic LRT, $\chi^2_{(1)}=5.23$, $P=0.022$.
+- A two-part (hurdle-at-zero) analysis or other re-specification is warranted.[@farewell2017]
+
+**Requested correction:** amend the TPS claim, or provide supporting analyses with appropriate modeling and full reporting (model specification, coefficients with 95% CIs, and diagnostics).
+
+
 
 #### C5 — Model assumptions: diagnostics indicate violations {#appx-c5}
 
@@ -185,7 +202,7 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 **Results of diagnostics.** Breusch–Pagan rejected homoscedasticity in all four models ($P\le 0.001$); Shapiro–Wilk rejected residual normality in all four ($P\le 0.001$); RESET indicated misspecification for $\Delta$NCPV $\sim$ CAC$_{bl}$ ($P=0.031$) and was borderline for $\Delta$NCPV $\sim$ PAV$_{bl}$ ($P=0.050$). Each model fails at least two assumption checks. Accordingly, the blanket statement that "all assumptions were corroborated" is not supported for these models.
 
-**Example of the cited diagnostic suite.** The output of `performance::check_model` for $\Delta$NCPV $\sim$ CAC$_{bl}$ shows nonlinearity (non-flat residual smooth), heteroskedasticity (funneling in the scale–location plot), and non-normal residuals (Q–Q tails), consistent with the tests above.
+**Example of the cited diagnostic suite.** The output of `performance::check_model` for $\Delta$NCPV $\sim$ CAC$_{bl}$ shows nonlinearity (non-flat residual smooth), heteroskedasticity (non-constant spread over fitted values), and non-normal residuals (Q–Q tails), consistent with the tests above.
 
 \singlefig{figures/reproduced/checkmodel_deltaNCPV_CAC.png}{C5b. \texttt{performance::check\_model(lm(}$\Delta$NCPV $\sim$ CAC$_{bl}$\texttt{))} output for the reported change-score model: clear nonlinearity, heteroskedasticity, and non-normal residuals---matching BP/SW/RESET results.}{0.87}
 

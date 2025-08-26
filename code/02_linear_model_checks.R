@@ -1,8 +1,9 @@
 # -----------------------------------------------------------------------------
 # Script : 02_linear_model_checks.R
 # Purpose: (i) Produce the GT summary table of assumption tests for four
-#          Δ-NCPV baseline models; (ii) save a 5-panel diagnostic grid for
+#          ΔNCPV baseline models; (ii) save a 5-panel diagnostic grid for
 #          ΔNCPV ~ CAC_bl using performance::check_model().
+#          ΔTPS ~ CAC_bl results contrast with paper's claim of 'association'
 # Links  : Supports Critical issue C5 (model-assumption violations) and the
 #          GT table/diagnostic figure cited in Appendix C5.
 # -----------------------------------------------------------------------------
@@ -208,3 +209,55 @@ ggsave(out_path, p,
        dpi = 800, bg = "white")
 
 message("Diagnostic grid saved to: ", out_path)
+
+
+############
+# ΔTPS ~ CAC baseline
+# "(C, F) Only CAC is associated with changes in NCPV and TPS." (p. 7, Figure 2 caption)
+# model results indicate no association
+############
+
+# C4b
+# model 
+m_norm <- lm(delta_TPS ~ V1_CAC, data=df)
+summary(m_norm)
+confint(m_norm)["V1_CAC", ] # not significant
+
+###
+# count of 0s
+with(df, c(
+  n                 = length(delta_TPS),
+  zeros_delta_TPS   = sum(delta_TPS == 0),
+  zeros_V1_CAC      = sum(V1_CAC == 0)
+))
+
+##  Excess-zero test under fitted Normal LM: parametric bootstrap 
+## Assumes integer-recorded outcome; ±0.5 window = "counts as zero".
+set.seed(1)
+mu  <- predict(m_norm)
+sig <- sigma(m_norm)
+n   <- length(mu)
+S_obs <- sum(df$delta_TPS == 0)
+win <- 0.5
+
+S_sim <- replicate(5000, {
+  yb <- rnorm(n, mu, sig)
+  sum(abs(yb) < win)
+})
+
+p_boot <- mean(abs(S_sim - mean(S_sim)) >= abs(S_obs - mean(S_sim)))
+c(S_obs = S_obs, E_bar = mean(S_sim), p_boot = p_boot) # Excess zeros (bootstrap)
+
+p0 <- pnorm(win, mu, sig) - pnorm(-win, mu, sig)
+E  <- sum(p0); V <- sum(p0*(1-p0))
+z  <- (S_obs - E)/sqrt(V)
+p_z <- 2*pnorm(-abs(z))
+c(z = z, p_z = p_z) # Excess zeros (analytic)
+
+## Is P(Y=0) related to CAC? Logistic LRT
+# Zero prob depends on CAC
+m0 <- glm(I(delta_TPS==0) ~ 1,        family = binomial, data = df)
+m1 <- glm(I(delta_TPS==0) ~ V1_CAC,   family = binomial, data = df)
+anova(m0, m1, test = "LRT") 
+
+
