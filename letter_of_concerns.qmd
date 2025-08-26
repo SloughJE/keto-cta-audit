@@ -45,21 +45,20 @@ Each concern is documented with evidence and reproduced checks in the attached A
 
 - **Incorrect Figure scales/IQR** ([C1–C3](#appx-c1)): Fig 1B y-axis is 0–10% while data span 0–20% (halves magnitude); Fig 1A–B IQR band conflicts with the stated sample IQR (lower bound of band dips <0%); Fig 2E–F y-axis should be –1 to 6 (not –1 to 4)
 - **Claims exceed reported models** ([C4](#appx-c4)): "No association" is asserted without reporting key models: $\Delta$TPS $\sim$ ApoB; $\Delta$TPS $\sim$ LDL\text{-}C; $\Delta$TPS $\sim$ LDL\text{-}C exposure
-- **Linear-model assumptions violated** ([C5](#appx-c5)): Change-score regressions fail $\ge 2$ diagnostics (e.g., BP $p<0.001$; Shapiro–Wilk $p<0.001$)
+- **Linear-model assumptions violated** ([C5](#appx-c5)): Change-score regressions fail $\ge 2$ diagnostics (e.g., BP $P\le 0.001$; Shapiro–Wilk $P\le 0.001$)
 
 **Major issues**
 
-(i) **Model strategy** ([M1](#appx-m1)): Standard plaque-progression analyses use baseline-adjusted follow-up (ANCOVA).[@vanrosendael2021; @han2020] ANCOVA is preferred to change-scores in observational data because it avoids baseline–change artifacts and gives more interpretable effects.[@vickers2001; @tu2007; @clifton2019; @chiolero2013] The unadjusted univariable change-score models do not include known and available confounders[@lehman2009; @han2020], leading to bias.
-(ii) **Bayes factors** ([M2](#appx-m2)): Not described a priori; uses r-scale = 0.8, described as "moderately informative" yet above the package’s ultrawide setting, without sensitivity analysis, and treats Bayes factors as  posterior probabilities. [@bayesfactor_regressionbf; @kruschke_2021; @kass_raftery_1995]
-(iii) **Age mediation** ([M3](#appx-m3)): Age is a confounder; treating it as a mediator while conditioning on CAC (downstream) is inconsistent with mediation.[@richiardi2013]
+(i) **Model strategy** ([M1](#appx-m1)): The paper relies on **unadjusted univariable change-score** models; field-standard is ANCOVA (follow-up ∼ baseline + exposure + age/sex/BP).[@vanrosendael2021; @han2020] ANCOVA avoids baseline–change artifacts and yields clearer estimates.[@vickers2001; @tu2007] Omitting age/sex/BP (available in the dataset) leaves associations likely confounded.[@lehman2009; @han2020] "Predicts/predictor" is used for association models without validated prognostic performance.[@moons2015]
+(ii) **Bayes factors** ([M2](#appx-m2)): Not prespecified; uses r-scale = 0.8, described as "moderately informative" yet above package’s "ultrawide"; same r-scale applied to all models with justification only for one; no standard sensitivity analysis; treats Bayes factors as posterior probabilities. [@bayesfactor_regressionbf; @kruschke_2021; @kass_raftery_1995]
 
 *Additional items are detailed in the Appendix.*
 
 **Requested editorial actions**  
 
 1. **Figure corrections**: Replot Figures 1A–1B and 2E–2F with correct y-axes and IQR shading; verify all figure captions against the underlying data.
-2. **Analyses & reporting**: Align claims with results (include $\Delta$TPS models or remove $\Delta$TPS claims); make ANCOVA (follow-up $\sim$ baseline + exposure + covariates) the primary analysis; report $\beta$, 95% CI, diagnostics; either remove Bayes-factor claims or document prespecification and sensitivity.
-3. **Independent statistical review**: Given the scope of figure and modelling issues, I respectfully request that the journal obtain an external statistical review and, depending on the findings, issue the appropriate notice (e.g., Author Correction or stronger).
+2. **Analyses & reporting**: Align claims with results (include TPS models or remove claims); make ANCOVA the primary analysis; report $\beta$, 95% CI, diagnostics; if diagnostics fail, re-specify (e.g., nonlinear terms; HC/sandwich SEs); use association language and reserve "predicts/predictor" for validated prognostic models; either remove Bayes-factor claims or document prespecification and sensitivity.
+3. **Independent statistical review**: Given the scope of figure and modeling issues, I respectfully request that the journal obtain an external statistical review and, depending on the findings, issue the appropriate notice (e.g., Author Correction or stronger).
 
 **Materials provided:** Appendix (included below); reproducibility [repository](https://github.com/SloughJE/keto-cta-audit)
 
@@ -178,13 +177,13 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 > "All linear model assumptions were corroborated with the R function `performance::check_model`." (p. 3)
 
-**Issue (objective error).** Diagnostics on the reported $\Delta$NCPV models fail $\ge 2$ tests (e.g., Breusch–Pagan $p<0.001$, Shapiro–Wilk $p<0.001$, RESET $p<0.001$), contradicting the manuscript’s assertion that assumptions were met.
+**Issue (objective error).** Diagnostics on the reported $\Delta$NCPV models fail $\ge 2$ tests (e.g., Breusch–Pagan $P\le 0.001$, Shapiro–Wilk $P\le 0.001$), contradicting the manuscript’s assertion that assumptions were met.
 
-\singlefig{figures/reproduced/LM_assumptions.png}{C5a. Objective tests for four $\Delta$NCPV models; each fails $\ge$2 assumptions.}{1}
+\singlefig{figures/reproduced/LM_assumptions.png}{C5a. Objective tests for four $\Delta$NCPV models; each fails $\ge 2$ assumptions.}{1}
 
 **Context (published letter).** A letter to the editor questioned model assumptions, noting median/IQR summaries (skewed distributions), clustering with no clear linear trend in scatterplots, and the absence of reported diagnostics [@lopezmoreno2025].
 
-**Results of diagnostics.** Breusch–Pagan rejected homoscedasticity in all four models (p$\le 0.001$); Shapiro–Wilk rejected residual normality in all four (p$\le 0.001$); RESET indicated misspecification for $\Delta$NCPV $\sim$ CAC$_{bl}$ ($p=0.031$) and was borderline for $\Delta$NCPV $\sim$ PAV$_{bl}$ ($p=0.050$). Each model fails at least two assumption checks. Accordingly, the blanket statement that "all assumptions were corroborated" is not supported for these models.
+**Results of diagnostics.** Breusch–Pagan rejected homoscedasticity in all four models ($P\le 0.001$); Shapiro–Wilk rejected residual normality in all four ($P\le 0.001$); RESET indicated misspecification for $\Delta$NCPV $\sim$ CAC$_{bl}$ ($P=0.031$) and was borderline for $\Delta$NCPV $\sim$ PAV$_{bl}$ ($P=0.050$). Each model fails at least two assumption checks. Accordingly, the blanket statement that "all assumptions were corroborated" is not supported for these models.
 
 **Example of the cited diagnostic suite.** The output of `performance::check_model` for $\Delta$NCPV $\sim$ CAC$_{bl}$ shows nonlinearity (non-flat residual smooth), heteroskedasticity (funneling in the scale–location plot), and non-normal residuals (Q–Q tails), consistent with the tests above.
 
@@ -258,7 +257,7 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 1. Re-compute Bayes factors with default r-scales (0.354, 0.5, 0.707) and \(r = 0.8\); report all values.
 2. Justify the prior for each model or adopt a standard scale.
-3. Indicate whether the BF analysis (and r-scale choice) was pre-specified; if post-hoc, label it exploratory and provide the rationale for adding it.
+3. Indicate whether the BF analysis (and r-scale choice) was pre-specified; if post hoc, label it exploratory and provide the rationale for adding it.
 4. Revise manuscript text to avoid equating BF with the probability the null is true unless prior odds are specified.  
 
 #### M3 — Age mediation analysis: causal language and improper adjustment {#appx-m3}
