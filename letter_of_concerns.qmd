@@ -49,7 +49,7 @@ Each concern is documented with evidence and reproduced checks in the attached A
 
 **Major issues**
 
-(i) **Model strategy** ([M1](#appx-m1)): The paper relies on **unadjusted univariable change-score** models; field-standard is ANCOVA (follow-up ∼ baseline + exposure + age/sex/BP).[@vanrosendael2021; @han2020] ANCOVA avoids baseline–change artifacts and yields clearer estimates.[@vickers2001; @tu2007] Omitting age/sex/BP (available in the dataset) leaves associations likely confounded.[@lehman2009; @han2020] "Predicts/predictor" is used for association models without validated prognostic performance.[@moons2015]
+(i) **Model strategy** ([M1](#appx-m1)): The paper relies on **unadjusted univariable change-score** models; field-standard is ANCOVA (follow-up ∼ baseline + exposure + age/sex/BP).[@vanrosendael2021; @han2020] ANCOVA avoids baseline–change artifacts and yields clearer estimates.[@vickers2001; @tu2007] Omitting age/sex/BP (available in the dataset) leaves associations likely confounded.[@lehman2009; @han2020] No reported 95% CIs for $\beta$. "Predicts" is used for association models without validated prognostic performance.[@moons2015]
 (ii) **Bayes factors** ([M2](#appx-m2)): Not prespecified; uses r-scale = 0.8, described as "moderately informative" yet above package’s "ultrawide"; same r-scale applied to all models with justification only for one; no standard sensitivity analysis; treats Bayes factors as posterior probabilities. [@bayesfactor_regressionbf; @kruschke_2021; @kass_raftery_1995]
 
 *Additional items are detailed in the Appendix.*
@@ -100,7 +100,7 @@ C1 and C2 reference panels from *Figure 1 Individual Change in Plaque Volume* of
 
 \pairfig{figures/published//Figure1B.jpg}{figures/reproduced/Figure1B.png}{Left: published (axis 0–10\%; IQR band mismatched). Right: reproduced (axis 0–20\%; IQR \(\approx\) 0.3\%–1.7\%).}{0.45}{0.48}
 
-**Issue (objective error).** The published panel’s y-axis is labeled 0–10% while the plotted scale and data span 0–20%.
+**Issue (objective error).** The published panel’s y-axis is labeled 0–10% while the plotted scale and data span 0–20%, which halves the apparent magnitude.
 
 The reproduction uses the correct 0–20\% range. The underlying data are unchanged.
 
@@ -189,14 +189,13 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 \singlefig{figures/reproduced/checkmodel_deltaNCPV_CAC.png}{C5b. \texttt{performance::check\_model(lm(}$\Delta$NCPV $\sim$ CAC$_{bl}$\texttt{))} output for the reported change-score model: clear nonlinearity, heteroskedasticity, and non-normal residuals---matching BP/SW/RESET results.}{0.87}
 
-
 **Generalizability.** These checks cover plaque-only change-score regressions because of data availability. Given the similar functional form and residual structure, similar violations are plausible for other reported change-score regressions (e.g., with ApoB/LDL-C), but cannot be verified without those covariates.
 
 **Author response (post-publication).** In a response to the letter to the editor regarding model assumptions, the authors stated that they reran all models using robust linear regression (`MASS::rlm`) and that estimates were "consistent" with the published results [@soto2025reply].
 
-**Assessment.** M-estimator robust regression (e.g., `MASS::rlm`) downweights outliers/heavy tails but does not remedy nonlinearity, heteroskedasticity, or non-normal residuals; it also does not supply standard p-values by default. Appropriate fixes require model specification (e.g., splines/transformations) and, where variance is non-constant, heteroskedasticity-consistent (HC/sandwich) SEs. Robust regression alone does not address the violations indicated here. [@foxweisberg2019; @venables2002]
+**Assessment.** M-estimator robust regression (e.g., `MASS::rlm`) downweights outliers/heavy tails but does not remedy nonlinearity, heteroskedasticity, or non-normal residuals (no HC/sandwich SEs were used); it also does not supply standard p-values by default. Appropriate fixes require model specification (e.g., splines/transformations) and, where variance is non-constant, heteroskedasticity-consistent (HC/sandwich) SEs. Robust regression alone does not address the violations indicated here. [@foxweisberg2019; @venables2002]
 
-**Requested correction.** Report assumption checks for all fitted models; where violations occur, fit appropriately specified models (e.g., baseline-adjusted follow-up with nonlinear terms; transformations where justified; HC/sandwich SEs) rather than relying solely on robust regression, and include diagnostics with the corrected analyses.
+**Requested correction.** Report assumption checks for all fitted models; where violations occur, fit appropriately specified models (e.g., baseline-adjusted follow-up with nonlinear terms; splines/transformations where justified; HC/sandwich SEs) rather than relying solely on robust regression, and include diagnostics with the corrected analyses.
 
 
 ### Major (M1–M3)
@@ -205,7 +204,9 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 > "Linear models on the primary (NCPV) and secondary outcomes were univariable" (p. 3)
 
-**Evidence (paper).** Methods describe univariable linear models; Table 3 and accompanying text report numerous univariable regressions across outcomes/exposures. The narrative alternates between "predicts/predictor" and "associated with," with a single late "exploratory" caveat in the conclusion. No baseline-adjusted follow-up models (ANCOVA) or prespecified covariate set are reported.
+> “By contrast, baseline CAC was positively associated with a change in NCPV (Figure 2C) ($\beta = 1.8$, $P < 0.001$, $R^2 = 0.33$).” (p. 4)^[Table 3 reports $\beta = 0.18$ for the corresponding $\Delta\mathrm{NCPV}\sim \mathrm{CAC}_{bl}$ model (a 10× difference); please reconcile (units/scaling vs typographical error).]
+
+**Evidence (paper).** Methods describe univariable linear models on change-scores as the primary analysis; Table 3 and accompanying text report numerous univariable regressions across outcomes/exposures. The narrative alternates between "predicts/predictor" and "associated with," with a single late "exploratory" caveat in the conclusion. No baseline-adjusted follow-up models (ANCOVA) or prespecified covariate set are reported. The manuscript does not report 95% confidence intervals for any $\beta$ coefficients.
 
 **Issue (affects interpretation).**
 
@@ -214,6 +215,7 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 - Primary models omit adjustment for age, sex, and BP despite availability and known links to plaque progression
 - Multiplicity is not addressed despite many tests; without a plan, familywise/type-I error is inflated and false positives are expected.
   - Table 3 has ~19 unique tests; repeating the same panel in two subgroups yields ~57 tests overall. The text references $\Delta$TPS analyses not shown, so the total is plausibly >70.
+- No confidence intervals for $\beta$ coefficients are reported. With modest $n$ and change-score models (which reduce precision), the results do not rule out clinically meaningful effects; "no association" wording is not supported without CIs.
 - "Predicts/predictor" implies prognostic (prediction) standards[@moons2015], e.g. multivariable specification, internal validation, calibration/discrimination, which are not presented. If claims are associational, wording should reflect association rather than prediction.
 
 **Requested action.**
