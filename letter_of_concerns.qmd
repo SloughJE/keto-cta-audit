@@ -40,7 +40,7 @@ I am submitting a post-publication concern regarding the article cited above. An
 
 **Critical issues**
 
-- **Incorrect y-axis tick labels and IQR band** ([C1–C3](#appx-c1)): Fig 1B (change in percent atheroma volume) tick labels show 0–10% while data span 0–20% (twofold underestimation); Fig 1A–B IQR band conflicts with the stated sample IQR (lower bound of band dips <0); Fig 2E–F y-axis should be –1 to 6 (not –1 to 4).
+- **Incorrect y-axis tick labels and IQR band** ([C1–C3](#appx-c)): Fig 1B ($\Delta$PAV) tick labels show 0–10% while data span 0–20% (twofold underestimation); Fig 1A–B IQR bands conflict with the reported sample IQR and data (lower bound of band dips below data); Fig 2E–F y-axis should be –1 to 6 (not –1 to 4). Per-tick, per-panel tick-label misalignment is inconsistent with standard plotting output.
 - **Claims exceed reported models** ([C4](#appx-c4)): "No association" is asserted without reporting key models: $\Delta$TPS $\sim$ ApoB; $\Delta$TPS $\sim$ LDL\text{-}C; $\Delta$TPS $\sim$ LDL\text{-}C exposure.
 - **Linear-model assumptions violated** ([C5](#appx-c5)): Change-score regressions fail $\ge 2$ diagnostics (Breusch–Pagan $P\le 0.001$; Shapiro–Wilk $P\le 0.001$) despite "assumptions...corroborated".
 
@@ -53,7 +53,7 @@ I am submitting a post-publication concern regarding the article cited above. An
 
 **Requested editorial actions**  
 
-1. **Figure corrections**: Replot Figures 1A–1B and 2E–2F with correct y-axes and IQR shading; verify all figure captions against the underlying data.
+1. **Figure corrections**: Replot Figures 1A, 1B and 2E–2F with correct y-axes and 25th–75th percentile shading; verify all figure captions against the underlying data.
 2. **Analyses & reporting**: Align claims with results (include TPS models or remove claims); make ANCOVA the primary analysis; report $\beta$, 95% CI, diagnostics; if diagnostics fail, re-specify (e.g., nonlinear terms; HC/sandwich SEs); use association language and reserve "predicts/predictor" for validated prognostic models; either remove Bayes-factor claims or document prespecification and sensitivity.
 3. **Independent statistical review**: Given the scope of figure and modeling issues, I respectfully request that the journal obtain an external statistical review and, depending on the findings, issue the appropriate notice (e.g., Author Correction or stronger).
 
@@ -87,15 +87,22 @@ Email: john@jsdatascience.com
 
 \endgroup
 
-**Data provenance.** Individual-level plaque metrics used for reproductions were obtained from the Citizen Science Foundation keto-CTA repository (accessed Aug 23, 2025). [@csf_ketocta]
+**Data provenance.** Individual-level plaque metrics used for reproductions were obtained from the Citizen Science Foundation keto-CTA repository (accessed Aug 23, 2025). [@csf_ketocta] The Citizen Science Foundation also funded the study (per the article’s Funding/Disclosures). Basic checks (baseline and change statistics) match the publication.
 
-### Critical (C1–C5)
+**Reproduction materials**. All reproduced figures and analyses and are in the [keto-cta-audit](https://github.com/SloughJE/keto-cta-audit) repository with instructions in the README.
+
+### Critical (C1–C5) {#appx-c}
 
 C1 and C2 reference panels from *Figure 1 Individual Change in Plaque Volume* of the published article (p. 6); left-hand images are published panels, right-hand images are reproductions.
 
+**Summary of Figure Issues (C1-C3)**
+Across Figures 1A–B and 2D–F, key elements in the publication (y-axis ranges; shaded "IQR" bands) cannot be reproduced from the data. Close inspection shows the y-axis numerals do not coincide with tick marks or gridlines, with non-uniform spacing by tick and by panel (ticks are absent in some panels), and an "IQR" band falls below the lowest observations. These per-tick, per-panel offsets are inconsistent with standard plotting output (which anchors labels to ticks) and suggestive of post-export placement.
+
+\newpage
+
 #### C1 — Figure 1B: y-axis ticks labeled 0–10% while data span 0–20% {#appx-c1}
 
-\pairfig{figures/published//Figure1B.jpg}{figures/reproduced/Figure1B.png}{Left: published (axis 0–10\%; IQR band mismatched). Right: reproduced (axis 0–20\%; IQR \(\approx\) 0.3\%–1.7\%).}{0.45}{0.48}
+\pairfig{figures/published//Figure1B.jpg}{figures/reproduced/Figure1B.png}{Left: published (axis 0–10\%). Right: reproduced (axis 0–20\%).}{0.45}{0.48}
 
 **Issue (error).** The published panel's y-axis tick labels show 0–10% although the values span 0–20%, causing a twofold underestimation of both absolute PAV and $\Delta$PAV when read from the axis.
 
@@ -104,33 +111,45 @@ The reproduction uses the correct 0–20\% range. The underlying data are unchan
 
 **Requested correction.** Update the Figure 1B y-axis label to **0–20\%**.
 
+\newpage
 
-#### C2 — Figures 1A & 1B: shaded IQR band incorrect; caption unclear {#appx-c2}
+#### C2 — Figures 1A & 1B: shaded "IQR" band incorrect; caption unclear {#appx-c2}
 
-\pairfig{figures/published//Figure1A.jpg}{figures/reproduced/Figure1A.png}{Left: published (IQR shading does not match the sample IQR). Right: reproduced (median \(\approx\) 18.9 mm\(^3\); IQR \(\approx\) 9.3–47.0 mm\(^3\)).}{0.47}{0.51}
+**Quoted Claim (paper)**
 
-**Issue (error).** The shaded IQR band conflicts with the reported sample IQRs.
-The shaded band is described as the interquartile range (IQR) of **change** (median 0.8\%, IQR 0.3\%–1.7\%). If so, the band should lie entirely **above 0\%** (the 25th percentile is 0.3\%). In the published panels the band is anchored at 0\% in Figure 1A and dips **below 0\%** in Figure 1B, which is inconsistent with the reported quantiles and cannot occur if the band truly represents the IQR of paired change.
+> "(A). The red line represents the median change (18.9 mm³), and the shaded area represents the IQR (9.3-47.0 mm³). (B) The red line represents the median change
+(0.8%), and the shaded area represents the IQR (0.3%-1.7%)." (p. 6, Figure 1 caption)
+
+\pairfig{figures/published//Figure1A.jpg}{figures/reproduced/Figure1A.png}{Left: published (shading is approximately anchored at zero). Right: reproduced, shading is above zero).}{0.47}{0.51}
+
+**Note.** It is assumed that the shaded band is meant to depict the interquartile range (25th–75th percentiles) across subjects at each timepoint (baseline and 1 year), not the IQR of change, a one dimensional interval metric.
+
+Empirical 25th–75th percentiles across subjects at each timepoint:
+
+- **Figure 1A — NCPV:** Baseline 15.5–102.3 mm³; 1 year 25.3–163.2 mm³
+- **Figure 1B — PAV:** Baseline 0.50–4.98%; 1 year 1.00–6.78%
+
+**Issue (error).** Assuming the shaded band is meant to show the interquartile range (25th–75th percentiles) across subjects at each timepoint (baseline and 1 year), the published bands do not match the empirical quartiles from the data (values listed above). In 1A the ribbon is anchored at 0, and in 1B it stays below the lower bound of the data and 0, which contradicts the observed quartile ranges. The caption quotes the IQR of paired change (a different quantity), contributing to the mismatch. Consequently, the shaded bands are not reproducible from the authors' data under either definition.
 
 **Requested correction.**
 
-1. Re-compute and plot the **interquartile range of paired within-person change** from baseline to 1 year (25th–75th percentiles).
-2. Revise the caption for both panels to read: "The red line shows the median paired change from baseline to 1 year; the shaded band shows the interquartile range (25th–75th percentiles) of paired change from baseline to 1 year."
-
+1. Compute Q1–Q3 across subjects at baseline and at 1 year, and plot those ranges as the shaded band(s).  
+2. Revise the caption to: *"The red line shows the median paired change from baseline to 1 year. The shaded band shows the interquartile range (25th–75th percentiles) across subjects at each timepoint (baseline and 1 year)."*  
+3. Regenerate the panels fully from code/data so the shaded band matches the computed quartiles.
 
 #### C3 — Figures 2D–2F: y-axis ticks labeled –1 to 4 while data span –1 to 6 {#appx-c3}
 
-
-\pairfig{figures/published//Figure2F.jpg}{figures/reproduced/Figure2F.png}{Left: published (y-axis **labeled** \(-1\)–4 while the plotted range/ticks correspond to **\(-1\)–6**). Right: reproduced (axis \(-1\)–6); OLS \(lm(y \sim x)\) line with SE band.\label{fig:c3f}}{0.47}{0.47}
+\pairfig{figures/published//Figure2F.jpg}{figures/reproduced/Figure2F.png}{Left: published (y-axis labeled -1 to 4). Right: reproduced (axis \(-1\) to 6); OLS \(lm(y \sim x)\) line with SE band.\label{fig:c3f}}{0.47}{0.47}
 
 **Issue (error).** Axis shown as –1 to 4; underlying data require –1 to 6.
-Similar to Figure 1B, Panel 2F published panel's y-axis label is inconsistent with the plotted scale. The label indicates \(-1\)–4, but the scale used is \(-1\)–6 (all data are shown). The same mislabeling is visible in panels **2D** and **2E** (not shown). This can mislead readers about the plotted domain and relative spread.
+Similar to Figure 1B, Panel 2F published panel's y-axis label is inconsistent with the plotted scale. The label indicates -1 to 4, but the range should be used is -1 to 6. The same mislabeling of y-axis ticks is visible in panels **2D** and **2E** (not shown). This can mislead readers about the plotted domain and relative spread.
 
 **Requested correction.**  
-Correct the y-axis **label** to reflect the actual plotted range in each panel, \(-1\)–6.  
+Correct the y-axis tick labels to reflect the actual plotted range in each panel.  
 
 *Panels 2D and 2E exhibit the same label–range mismatch; 2F is shown as the example.*
 
+\newpage
 #### C4 — Conclusions exceed support from reported models {#appx-c4}
 
 **Quoted claims (paper):**
@@ -159,9 +178,9 @@ The audit table below maps each claim to the model it implies and whether it was
 | **$\Delta$TPS** vs LDL\text{-}C / ApoB / exposure | $\Delta$TPS $\sim$ (LDL\text{-}C or ApoB or exposure) | **Not reported** |
 \endgroup
 
-A review of Table 3 Model Results confirms these omissions: it reports selected $\Delta$NCPV regressions but includes no models with $\Delta$TPS as the outcome and no models using LDL-C baseline or ApoB exposure as independent variables. These models are also absent from the supplementary material.
+A review of Table 3 Model Results from the study confirms these omissions: it reports selected $\Delta$NCPV regressions but includes no models with $\Delta$TPS as the outcome and no models using LDL-C baseline or ApoB exposure as independent variables. These models are also absent from the supplementary material.
 
-\singlefig{figures/published//Table3_caption.png}{C4a. Table 3 Model Results — no $\Delta$TPS models are reported.}{0.9}
+\singlefig{figures/published//Table3_caption.png}{Table 3 Model Results — no $\Delta$TPS models are reported.}{0.9}
 
 **Requested correction:** Provide fitted models (coefficients, CIs, diagnostics) for all claimed relationships, especially $\Delta$TPS vs LDL-C/ApoB/exposure, or amend the conclusions.
 
@@ -198,7 +217,7 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 \singlefig{figures/reproduced/LM_assumptions.png}{C5a. Objective tests for four $\Delta$NCPV models; each fails $\ge 2$ assumptions.}{1}
 
-**Context (published letter).** A letter to the editor questioned model assumptions, noting median/IQR summaries (skewed distributions), clustering with no clear linear trend in scatterplots, and the absence of reported diagnostics [@lopezmoreno2025].
+**Context (published letter).** A letter to the editor previously questioned model assumptions, noting median/IQR summaries (skewed distributions), clustering with no clear linear trend in scatterplots, and the absence of reported diagnostics [@lopezmoreno2025]. These concerns arose from visual inspection of the published figures.
 
 **Results of diagnostics.** Breusch–Pagan rejected homoscedasticity in all four models ($P\le 0.001$); Shapiro–Wilk rejected residual normality in all four ($P\le 0.001$); RESET indicated misspecification for $\Delta$NCPV $\sim$ CAC$_{bl}$ ($P=0.031$) and was borderline for $\Delta$NCPV $\sim$ PAV$_{bl}$ ($P=0.050$). Each model fails at least two assumption checks. Accordingly, the blanket statement that "all assumptions were corroborated" is not supported for these models.
 
@@ -208,9 +227,9 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 **Generalizability.** These checks cover plaque-only change-score regressions because of data availability. Given the similar functional form and residual structure, similar violations are plausible for other reported change-score regressions (e.g., with ApoB/LDL-C), but cannot be verified without those covariates.
 
-**Author response (post-publication).** In a response to the letter to the editor regarding model assumptions, the authors stated that they reran all models using robust linear regression (`MASS::rlm`) and that estimates were "consistent" with the published results [@soto2025reply].
+**Author response (post-publication).** In a response to the previously mentioned letter to the editor regarding model assumptions, the authors stated that they reran all models using robust linear regression (`MASS::rlm`) and that estimates were "consistent" with the published results. They provided no diagnostics or output, noting that "residual plot evaluation can also be subjective."[@soto2025reply] Without diagnostics, the claimed consistency cannot be independently assessed.
 
-**Assessment.** M-estimator robust regression (e.g., `MASS::rlm`) downweights outliers/heavy tails but does not remedy nonlinearity, heteroskedasticity, or non-normal residuals (no HC/sandwich SEs were used); it also does not supply standard p-values by default. Appropriate fixes require model specification (e.g., splines/transformations) and, where variance is non-constant, heteroskedasticity-consistent (HC/sandwich) SEs. Robust regression alone does not address the violations indicated here. [@foxweisberg2019; @venables2002]
+**Assessment.** M-estimator robust regression (e.g., `MASS::rlm`) downweights outliers/heavy tails but does not remedy nonlinearity, heteroskedasticity, or non-normal residuals (no HC/sandwich SEs were used); it also does not supply standard p-values by default. Appropriate fixes require model specification (e.g., splines/transforons) and, where variance is non-constant, heteroskedasticity-consistent (HC/sandwich) SEs. Robust regression alone does not address the violations indicated here. [@foxweisberg2019; @venables2002]
 
 **Requested correction.** Report assumption checks for all fitted models; where violations occur, fit appropriately specified models (e.g., baseline-adjusted follow-up (see [M1](#appx-m1)) with nonlinear terms; splines/transformations where justified; HC/sandwich SEs) rather than relying solely on robust regression, and include diagnostics with the corrected analyses.
 
@@ -219,15 +238,17 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 #### M1 — Model strategy, multiplicity, and claim wording {#appx-m1}
 
+**Quoted methods.** 
+
 > "Linear models on the primary (NCPV) and secondary outcomes were univariable" (p. 3)
 
-> “By contrast, baseline CAC was positively associated with a change in NCPV (Figure 2C) ($\beta = 1.8$, $P < 0.001$, $R^2 = 0.33$).” (p. 4)^[Table 3 reports $\beta = 0.18$ for the corresponding $\Delta\mathrm{NCPV}\sim \mathrm{CAC}_{bl}$ model (a 10× difference); please reconcile (units/scaling vs typographical error).]
+> "By contrast, baseline CAC was positively associated with a change in NCPV (Figure 2C) ($\beta = 1.8$, $P < 0.001$, $R^2 = 0.33$)." (p. 4)^[Table 3 reports $\beta = 0.18$ (not $\beta = 1.8$ in this quote) for the corresponding $\Delta\mathrm{NCPV}\sim \mathrm{CAC}_{bl}$ model (a 10× difference); please reconcile (units/scaling vs typographical error).]
 
-**Evidence (paper).** Methods describe univariable linear models on change-scores as the primary analysis; Table 3 and accompanying text report numerous univariable regressions across outcomes/exposures. The narrative alternates between "predicts/predictor" and "associated with," with a single late "exploratory" caveat in the conclusion. No baseline-adjusted follow-up models (ANCOVA) or prespecified covariate set are reported. The manuscript does not report 95% confidence intervals for any $\beta$ coefficients.
+**Evidence.** Methods describe univariable linear models on change-scores as the primary analysis; Table 3 and accompanying text report numerous univariable regressions across outcomes/exposures. The narrative alternates between "predicts/predictor" and "associated with," with a single late "exploratory analysis" caveat in the conclusion. No baseline-adjusted follow-up models (ANCOVA) or prespecified covariate set are reported. The manuscript does not report 95% confidence intervals for any $\beta$ coefficients.
 
 **Issue (methodological concern, inconsistency).**
 
-- Primary reliance on univariable change-score models invites confounding (e.g., age, sex) and mathematical coupling with baseline[@tu2007; @clifton2019]; change scores compounds measurement error and reduces power. Baseline imbalance and regression-to-the-mean can inflate, attenuate, or reverse associations.[@chiolero2013]
+- Primary reliance on univariable change-score models invites confounding (e.g., age, sex) and mathematical coupling with baseline[@tu2007; @clifton2019]; change-scores compound measurement error and reduce power. Baseline imbalance and regression-to-the-mean can inflate, attenuate, or reverse associations.[@chiolero2013]
 - The approach departs from standard practice[@vanrosendael2021; @han2020] for progression analyses, where follow-up is modeled as a function of baseline and covariates (ANCOVA) to obtain clinically interpretable effects at a given starting plaque burden.
 - Primary models omit adjustment for age, sex, and BP despite availability and known links to plaque progression
 - Multiplicity is not addressed despite many tests; without a plan, familywise/type-I error is inflated and false positives are expected.
@@ -237,7 +258,7 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 **Requested action.**
 
-1. **Clarify analytic aim.** State consistently whether analyses are **predictive** or **associative** throughout the manuscript (Title, Abstract, Methods, Results, Figures/Tables, Conclusions). Use "predicts/predictor" only for validated prognostic models; otherwise use “associated with.”
+1. **Clarify analytic aim.** State consistently whether analyses are **predictive** or **associative** throughout the manuscript. Use "predicts/predictor" only for validated prognostic models; otherwise use "associated with."
 
 2. **Declare outcomes and exposures.** Specify one primary outcome and the primary exposure(s); use other plaque metrics (TPS, PAV, CAC) as outcomes or concordance checks, not predictors of NCPV, unless prespecified, otherwise results are driven by shared construct and coupling rather than etiologic signal.
 
@@ -265,18 +286,20 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 **Issue (mis-specification, inconsistency)**
 
-- The paper’s sole rationale for adding a Bayes-factor analysis is that it "adds credence to finding there is no association", is circular: a BF has evidential meaning only when the prior and analysis plan are fixed *a priori*.
-- `regressionBF` run with `rscale = 0.8`, called "moderately informative."
-  - Package named defaults: "medium" = 0.354, "wide" = 0.5, "ultrawide" = 0.707; **0.8 is wider than "ultrawide."**[@bayesfactor_regressionbf]
-- The same extra-wide r-scale is applied to every model without justification 
-- No prior-sensitivity analysis (a standard recommendation for Bayes-factor reporting[@kruschke_2021]) and no indication the BF test was pre-specified.
+The paper's sole rationale for adding a Bayes-factor analysis is that it "adds credence to finding there is no association". A Bayes factor quantifies evidence relative to a specified prior and model; without prespecified or externally justified priors and a sensitivity analysis, a post-hoc BF does not provide independent confirmation of 'no association.'
+
+- `regressionBF` used with `rscale = 0.8` and described as "moderately informative."
+  - Package named defaults: $\text{medium}=\frac{\sqrt{2}}{4}\approx 0.354 \;|\; \text{wide}=0.5 \;|\; \text{ultrawide}=\frac{\sqrt{2}}{2}\approx 0.707$. 0.8 is not moderate. [@bayesfactor_regressionbf]
+- The same extra-wide r-scale is applied to every model with justification for only the plaque $\sim$ ApoB model.
+- No prior-sensitivity analysis (a standard recommendation for Bayes-factor reporting[@kruschke_2021]) was presented 
+- No indication the BF test was prespecified.
 - Interpreting a BF of 6 to 10 as "6 to 10 times more likely that the hypothesis of no association between these variables (the null) is true" conflates a Bayes factor (a likelihood ratio) with posterior probability. Such a claim requires explicit prior odds.[@kass_raftery_1995]
 
 **Requested action**
 
 1. Re-compute Bayes factors with default r-scales (0.354, 0.5, 0.707) and \(r = 0.8\); report all values.
 2. Justify the prior for each model or adopt a standard scale.
-3. Indicate whether the BF analysis (and r-scale choice) was pre-specified; if post hoc, label it exploratory and provide the rationale for adding it.
+3. Indicate whether the BF analysis (and r-scale choice) was prespecified.; if post hoc, label it exploratory and provide the rationale for adding it.
 4. Revise manuscript text to avoid equating BF with the probability the null is true unless prior odds are specified.  
 
 #### M3 — Age mediation analysis: causal language and improper adjustment {#appx-m3}
@@ -302,20 +325,17 @@ Specify the causal estimand with a DAG. If mediation is intended: fit $\text{Med
 \begingroup\small
 | ID | Sev. | Location | Issue (concise) | Ref. | Requested action |
 |----|------|----------|-----------------|------|------------------|
-| O1 | Other | Methods        | Percent change reported as **ratio of medians**, not per-participant | [§O1](#O1) | Provide per-subject % change (or both) with summary + CI |
-| O2 | Other | Measurements   | "Lifetime LDL-C exposure" mixes time units (days + years) | [§O2](#O2) | Recalculate exposure with a single time unit |
-| O3 | Other | Data/QC        | **Inconsistent durations** distort exposure denominators | [§O3](#O3) | Audit durations; rerun exposure-based analyses |
-| O4 | Other | Table 1        | **Impossible IQR** for total cholesterol (301–337 mg/dL; median = 338 mg/dL) | [§O4](#O4) | Correct IQR; verify all baseline stats & units |
-
+| O1 | Other | Methods        | Percent change reported as **ratio of medians**, not per-participant | [O1](#O1) | Provide per-subject % change (or both) with summary + CI |
+| O2 | Other | Measurements   | "Lifetime LDL-C exposure" mixes time units (days + years) | [O2](#O2) | Recalculate exposure with a single time unit |
+| O3 | Other | Table 1        | Total cholesterol (301–337 mg/dL; median = **338** mg/dL) | - | Correct IQR or Median |
 \endgroup
-
 
 
 #### O1 — Percent-change metric: ratio of medians, not per-subject {#O1}
 
 **Quote**
 
-> "The median change in NCPV was 18.9 mm3 (IQR: 9.3-47.0 mm3) and the median change in PAV was 0.8% (IQR: 0.3%-1.7%). Compared to baseline, these represent a **43% and 50% change**, respectively." (p. 4)
+> "The median change in NCPV was 18.9 mm³ (IQR: 9.3-47.0 mm³) and the median change in PAV was 0.8% (IQR: 0.3%-1.7%). Compared to baseline, these represent a **43% and 50% change**, respectively." (p. 4)
 
 **Issue (clarification)**  
 
@@ -336,15 +356,8 @@ This definition differs from the customary per-participant percent change and ca
 
 **Requested action**
 
-1. Report per-subject percent change  
-
-   $$
-   \%\Delta X_i \;=\; \frac{X_{1\text{y},i}-X_{bl,i}}{X_{bl,i}}\times100
-   $$
-
-   with median, IQR, and 95% CI.
-2. Clarify that the published 43% / 50% are ratios of medians.
-3. State how zero baselines were handled.
+1. Report per-subject percent change with median, IQR, and 95% CI and specify how zero or near-zero baseline values were handled when computing percent change.
+2. Clarify that the published 43% and 50% are ratios of medians.
 
 
 #### O2 — Exposure metric: construction and units inconsistent {#O2}
@@ -366,38 +379,16 @@ $$
 - **Scale distortion:** the pre-KD term is ~**1/365** the magnitude of the day-based terms unless age is converted; if converted to days, the term becomes a near-linear **age surrogate** times one LDL value.
 - **Interpretability:** model coefficients are not in a single unit (mg·day/dL **+** mg·year/dL), hindering effect-size meaning and comparisons.
 
-**Requested fix.** Use a single time unit (e.g., convert all time to **days** and label units), report a sensitivity **dropping the pre-KD term**, and consider also reporting the **time-weighted mean LDL**:
+**Note.** It appears some Ketogenic Diet Exposure durations are inconsistent across the study.
+
+- Table 1 KD duration: mean **1,642.7 days (~4.5 y)**.
+- Table 3 caption: "LDL-C exposure on a ketogenic diet: mean **5.7 y**."
+
+**Requested fix.** Confirm KD duration. Use a single time unit (e.g., convert all time to **days** and label units), report a sensitivity dropping the pre-KD term, and consider also reporting the time-weighted mean LDL:
 $$
 \overline{\mathrm{LDL}}=\frac{\sum_{i}\mathrm{LDL}_{i}\,\Delta t_{i}}{\sum_{i}\Delta t_{i}}
 $$
 alongside total duration.
-
-
-#### O3 — Exposure durations inconsistent across study {#O3}
-
-**Issue (clarification)**
-
-- Table 1 KD duration: **1,642.7 days (~4.5 y)**.
-- Table 3 caption: "LDL-C exposure … mean **5.7 y**."
-- Abstract median KD duration: **1,302 days**
-
-Discrepant durations feed into exposure metrics and bias effect estimates.
-
-**Requested action**
-
-1. Audit raw duration variables; reconcile KD start date, follow-up days, and exposure windows.
-2. Re-calculate exposure metrics (e.g., time-weighted mean LDL) and rerun analyses with corrected durations.
-3. Report both mean and median durations in consistent units (days or years).
-
-#### O4 — Table 1 Baseline Characteristics incorrect IQR {#O4}
-
-> "Total cholesterol (mg/dL) 355.1 ± 89.9; median 338 (IQR 301–**337**)" — Table 1
-
-**Issue (clarification)**  
-The reported median (338 mg/dL) lies **outside** the stated IQR (301–337 mg/dL), which is mathematically impossible.
-
-**Requested action**  
-Correct the IQR and verify all baseline statistics (units, rounding, transcription).
 
 
 \newpage
