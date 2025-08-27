@@ -167,11 +167,13 @@ A review of Table 3 Model Results confirms these omissions: it reports selected 
 
 **Requested correction:** Provide fitted models (coefficients, CIs, diagnostics) for all claimed relationships, especially $\Delta$TPS vs LDL-C/ApoB/exposure, or amend the conclusions.
 
-##### C4.b — $\Delta$TPS$\sim$CAC: claimed association not reproduced
+##### $\Delta$TPS$\sim$CAC: claimed association not reproduced
+
+Although Table 3 shows no $\Delta$TPS outcome models, the Figure 2 caption asserts an association with baseline CAC.
 
 **Quoted claim (paper).** 
 
-> "(C, F) Only CAC is associated with changes in NCPV and TPS." (p. 7, Figure 2 caption)
+> "(C, F) Only CAC is associated with changes in NCPV and TPS." (p. 7)
 
 Reproducing the stated model univariable linear model does not support an association: $\Delta$TPS $\sim$ CAC$_{bl}$ gives $\beta\ = 0.0017$ (95% CI: −0.0004 to 0.0038), $P = 0.11$.
 Additionally:
