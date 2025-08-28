@@ -87,18 +87,21 @@ Email: john@jsdatascience.com
 
 \endgroup
 
-**Data provenance.** Individual-level plaque metrics used for reproductions were obtained from the Citizen Science Foundation keto-CTA repository (accessed Aug 23, 2025). [@csf_ketocta] The Citizen Science Foundation also funded the study (per the article’s Funding/Disclosures). Basic checks (baseline and change statistics) match the publication.
+**Data provenance.** Individual-level plaque metrics used for reproductions were obtained from the Citizen Science Foundation keto-CTA repository.[@csf_ketocta] The Citizen Science Foundation also funded the study (per the article’s Funding/Disclosures). Basic checks (baseline and change statistics) match the publication.
 
 **Reproduction materials**. All reproduced figures and analyses and are in the [keto-cta-audit](https://github.com/SloughJE/keto-cta-audit) repository with instructions in the README.
 
+
+**Abbreviations**: NCPV, non-calcified plaque volume; PAV, percent atheroma volume; TPS, total plaque score; CAC, coronary artery calcium; $\Delta$ denotes change/difference (e.g., $\Delta$TPS = change in TPS from baseline to 1 year follow-up)
+
 ### Critical (C1–C5) {#appx-c}
 
-C1 and C2 reference panels from *Figure 1 Individual Change in Plaque Volume* of the published article (p. 6); left-hand images are published panels, right-hand images are reproductions.
-
-**Summary of Figure Issues (C1-C3)**
-Across Figures 1A–B and 2D–F, key elements in the publication (y-axis ranges; shaded "IQR" bands) cannot be reproduced from the data. Close inspection shows the y-axis numerals do not coincide with tick marks or gridlines, with non-uniform spacing by tick and by panel (ticks are absent in some panels), and an "IQR" band falls below the lowest observations. These per-tick, per-panel offsets are inconsistent with standard plotting output (which anchors labels to ticks) and suggestive of post-export placement.
+**Summary of Figure Issues (C1-C3).**
+Across Figures 1A–B and 2D–F, key elements in the publication (y-axis ranges; shaded "IQR" bands) cannot be reproduced from the data. Close inspection shows the y-axis numerals do not coincide with tick marks or gridlines, with non-uniform spacing by tick and by panel (ticks are absent in some panels), and an "IQR" band falls below the lowest observations. These per-tick, per-panel offsets are inconsistent with standard plotting output (which anchors labels to ticks), and likely introduced during figure export/annotation.
 
 \newpage
+
+C1 and C2 reference panels from *Figure 1 Individual Change in Plaque Volume* of the published article (p. 6); left-hand images are published panels, right-hand images are reproductions.
 
 #### C1 — Figure 1B: y-axis ticks labeled 0–10% while data span 0–20% {#appx-c1}
 
@@ -147,7 +150,7 @@ Similar to Figure 1B, Panel 2F published panel's y-axis label is inconsistent wi
 **Requested correction.**  
 Correct the y-axis tick labels to reflect the actual plotted range in each panel.  
 
-*Panels 2D and 2E exhibit the same label–range mismatch; 2F is shown as the example.*
+*Panels 2D and 2E exhibit the same y-axis label–range mismatch; 2F is shown as the example.*
 
 \newpage
 #### C4 — Conclusions exceed support from reported models {#appx-c4}
@@ -229,14 +232,14 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 **Author response (post-publication).** In a response to the previously mentioned letter to the editor regarding model assumptions, the authors stated that they reran all models using robust linear regression (`MASS::rlm`) and that estimates were "consistent" with the published results. They provided no diagnostics or output, noting that "residual plot evaluation can also be subjective."[@soto2025reply] Without diagnostics, the claimed consistency cannot be independently assessed.
 
-**Assessment.** M-estimator robust regression (e.g., `MASS::rlm`) downweights outliers/heavy tails but does not remedy nonlinearity, heteroskedasticity, or non-normal residuals (no HC/sandwich SEs were used); it also does not supply standard p-values by default. Appropriate fixes require model specification (e.g., splines/transforons) and, where variance is non-constant, heteroskedasticity-consistent (HC/sandwich) SEs. Robust regression alone does not address the violations indicated here. [@foxweisberg2019; @venables2002]
+**Assessment.** M-estimator robust regression (e.g., `MASS::rlm`) downweights outliers/heavy tails but does not remedy nonlinearity, heteroskedasticity, or non-normal residuals (no HC/sandwich SEs were used); it also does not supply standard p-values by default. Appropriate fixes require model specification (e.g., splines/transformations) and, where variance is non-constant, heteroskedasticity-consistent (HC/sandwich) SEs. Robust regression alone does not address the violations indicated here. [@foxweisberg2019; @venables2002]
 
 **Requested correction.** Report assumption checks for all fitted models; where violations occur, fit appropriately specified models (e.g., baseline-adjusted follow-up (see [M1](#appx-m1)) with nonlinear terms; splines/transformations where justified; HC/sandwich SEs) rather than relying solely on robust regression, and include diagnostics with the corrected analyses.
 
 
 ### Major (M1–M3)
 
-#### M1 — Model strategy, multiplicity, and claim wording {#appx-m1}
+#### M1 — Model strategy, reporting, multiplicity, and claim wording {#appx-m1}
 
 **Quoted methods.** 
 
@@ -248,9 +251,21 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 
 **Issue (methodological concern, inconsistency).**
 
-- Primary reliance on univariable change-score models invites confounding (e.g., age, sex) and mathematical coupling with baseline[@tu2007; @clifton2019]; change-scores compound measurement error and reduce power. Baseline imbalance and regression-to-the-mean can inflate, attenuate, or reverse associations.[@chiolero2013]
+- Reliance on univariable change-score models invites confounding and mathematical coupling with baseline[@tu2007; @clifton2019]; change-scores compound measurement error and reduce power. Baseline imbalance and regression-to-the-mean can inflate, attenuate, or reverse associations.[@chiolero2013]
 - The approach departs from standard practice[@vanrosendael2021; @han2020] for progression analyses, where follow-up is modeled as a function of baseline and covariates (ANCOVA) to obtain clinically interpretable effects at a given starting plaque burden.
-- Primary models omit adjustment for age, sex, and BP despite availability and known links to plaque progression
+- Primary models omit adjustment for age, sex, and BP despite availability and known links to plaque progression.
+- $\Delta$NCPV is screened against baseline TPS, PAV, CAC, and NCPV without prespecification, even though these predictors are deterministically related and/or highly correlated (e.g., TPV ≈ NCPV + CPV; PAV = TPV/vessel volume).[@Kishi2016; @Eskerud2021; @Manubolu2024; @Nakanishi2020] This invites mechanical "plaque-predicts-plaque" findings via shared components.
+- Total R² (or p-values) from univariable models is not the relevant metric when baseline to follow-up correlation is very high. With plaque measures, $\mathrm{NCPV}_{\text{follow-up}}$ is dominated by $\mathrm{NCPV}_{\text{baseline}}$ due to test–retest reliability (especially after 1 year), so univariable models such as $\Delta\mathrm{NCPV}\sim\mathrm{ApoB}$ or $\mathrm{NCPV}_{\text{follow-up}}\sim\mathrm{ApoB}$ will show low **total** $R^2$ by construction. In our reproduction, for example,
+$R^2\!\left(\Delta\mathrm{NCPV}\sim\mathrm{NCPV}_{\text{baseline}}\right)=0.49$
+while
+$R^2\!\left(\mathrm{NCPV}_{\text{follow-up}}\sim\mathrm{NCPV}_{\text{baseline}}\right)=0.96$.
+ (this difference reflects noise amplification in change scores). Additionally the ICC for the follow-up ~ baseline model is 0.91^[The intraclass correlation coefficient (ICC) is the proportion of total variance attributable to between-participant differences. With two repeated measures per person, ICC can be estimated from a one-way ANOVA (mean squares). A high ICC (≈0.91–0.95) means baseline explains most follow-up variance.]
+The relevant quantity is the **partial R²** for the exposure conditional on baseline (and prespecified covariates) in an ANCOVA model:
+$$
+R^2_{\text{partial}}\!\big(\text{ApoB}\mid \mathrm{NCPV}_{\text{baseline}},\text{covariates}\big)
+=\frac{R^2_{\text{full}}-R^2_{\text{baseline+covariates}}}{1-R^2_{\text{baseline+covariates}}}\
+$$
+  Interpreting the **total** R² or signficance from a univariable model understates the contribution of ApoB beyond baseline and covariates.[@Cohen2003]
 - Multiplicity is not addressed despite many tests; without a plan, familywise/type-I error is inflated and false positives are expected.
   - Table 3 has ~19 unique tests; repeating the same panel in two subgroups yields ~57 tests overall. The text references $\Delta$TPS analyses not shown, so the total is plausibly >70.
 - No confidence intervals for $\beta$ coefficients are reported. With modest $n$ and change-score models (which reduce precision), the results do not rule out clinically meaningful effects; "no association" wording is not supported without CIs.

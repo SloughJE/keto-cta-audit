@@ -4,6 +4,7 @@
 #          ΔNCPV baseline models; (ii) save a 5-panel diagnostic grid for
 #          ΔNCPV ~ CAC_bl using performance::check_model().
 #          ΔTPS ~ CAC_bl results contrast with paper's claim of 'association'
+#          Example ICC calculation on NCPV
 # Links  : Supports Critical issue C5 (model-assumption violations) and the
 #          GT table/diagnostic figure cited in Appendix C5.
 # -----------------------------------------------------------------------------
@@ -261,3 +262,18 @@ m1 <- glm(I(delta_TPS==0) ~ V1_CAC,   family = binomial, data = df)
 anova(m0, m1, test = "LRT") 
 
 
+####
+
+# Example ICC calculation on NCPV
+library(psych)
+dat <- df[, c("V1_Non_Calcified_Plaque_Volume",
+                      "V2_Non_Calcified_Plaque_Volume")]
+
+out <- ICC(as.matrix(dat))   # subjects in rows, measures in columns
+out$results                 # table with ICC1, ICC2, ICC3, CIs, etc.
+
+# Example: extract ICC(1,1) and ICC(2,1)
+icc11 <- subset(out$results, type == "ICC1")[["ICC"]]
+icc21 <- subset(out$results, type == "ICC2")[["ICC"]]
+icc11
+icc21
