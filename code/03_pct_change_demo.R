@@ -9,23 +9,25 @@
 library(tidyverse)
 library(fs)
 
-# --------------------------- 1. Load data -----------------------------------
 csv_path <- if (file_exists("data/keto-cta-quant-and-semi-quant_dl.csv"))
   "data/keto-cta-quant-and-semi-quant_dl.csv" else
   "data/keto-cta-quant-and-semi-quant.csv"
 
 df <- read_csv(csv_path, show_col_types = FALSE)
 
-# --------------------------- 2. Helper --------------------------------------
-pct_change <- function(baseline, followup) {
-  pc <- 100 * (followup - baseline) / baseline
-  pc[!is.finite(pc)] <- NA_real_          # drop Inf/NaN when baseline = 0
+# pct change function
+pct_change <- function(baseline, followup, verbose = FALSE) {
+  pc  <- 100 * (followup - baseline) / baseline
+  bad <- is.nan(pc) | is.infinite(pc)       # only Inf/NaN (e.g., baseline == 0)
+  if (verbose) message(sum(bad, na.rm = TRUE), " value(s) replaced with NA")
+  pc[bad] <- NA_real_
   pc
 }
 
-# --------------------------- 3. NCPV ----------------------------------------
+
+# NCPV
 pct_ncpv <- pct_change(df$V1_Non_Calcified_Plaque_Volume,
-                       df$V2_Non_Calcified_Plaque_Volume)
+                       df$V2_Non_Calcified_Plaque_Volume, verbose = TRUE)
 
 tbl_ncpv <- tibble(
   outcome         = "NCPV",
@@ -36,9 +38,9 @@ tbl_ncpv <- tibble(
     median(df$V1_Non_Calcified_Plaque_Volume)
 )
 
-# --------------------------- 4. PAV -----------------------------------------
+# PAV
 pct_pav <- pct_change(df$V1_Percent_Atheroma_Volume,
-                      df$V2_Percent_Atheroma_Volume)
+                      df$V2_Percent_Atheroma_Volume, verbose = TRUE)
 
 tbl_pav <- tibble(
   outcome         = "PAV",
@@ -49,7 +51,6 @@ tbl_pav <- tibble(
     median(df$V1_Percent_Atheroma_Volume)
 )
 
-# --------------------------- 5. Combine & print -----------------------------
 result <- bind_rows(tbl_ncpv, tbl_pav)
 
-print(result, width = Inf)
+print(result)

@@ -305,7 +305,7 @@ $$
 The paper's sole rationale for adding a Bayes-factor analysis is that it "adds credence to finding there is no association". A Bayes factor quantifies evidence relative to a specified prior and model; without prespecified or externally justified priors and a sensitivity analysis, a post-hoc BF does not provide independent confirmation of 'no association.'
 
 - `regressionBF` used with `rscale = 0.8` and described as "moderately informative."
-  - Package named defaults: $\text{medium}=\frac{\sqrt{2}}{4}\approx 0.354 \;|\; \text{wide}=0.5 \;|\; \text{ultrawide}=\frac{\sqrt{2}}{2}\approx 0.707$. 0.8 is not moderate. [@bayesfactor_regressionbf]
+  - Package named defaults: $\text{medium}=\frac{\sqrt{2}}{4}\approx 0.354 \;|\; \text{wide}=0.5 \;|\; \text{ultrawide}=\frac{\sqrt{2}}{2}\approx 0.707$.[@bayesfactor_regressionbf] 0.8 is not moderate.
 - The same extra-wide r-scale is applied to every model with justification for only the plaque $\sim$ ApoB model.
 - No prior-sensitivity analysis (a standard recommendation for Bayes-factor reporting[@kruschke_2021]) was presented 
 - No indication the BF test was prespecified.
@@ -332,20 +332,7 @@ Age is a confounder (not caused by LDL), and baseline CAC is plausibly downstrea
 **Requested action.**  
 Specify the causal estimand with a DAG. If mediation is intended: fit $\text{Mediator} \sim \text{Exposure} + \text{Age}$ and $\text{Outcome} \sim \text{Exposure} + \text{Mediator} + \text{Age}$ and report indirect/direct/total effects with CIs. If the target is the total effect of lifetime LDL on NCPV, do not adjust for baseline CAC; report models with/without age (confounder), with diagnostics and collinearity checks.
 
-
-
-\newpage
-
 ### Other — Additional analysis & reporting issues {#appx-other}
-
-\begingroup\small
-| ID | Sev. | Location | Issue (concise) | Ref. | Requested action |
-|----|------|----------|-----------------|------|------------------|
-| O1 | Other | Methods        | Percent change reported as **ratio of medians**, not per-participant | [O1](#O1) | Provide per-subject % change (or both) with summary + CI |
-| O2 | Other | Measurements   | "Lifetime LDL-C exposure" mixes time units (days + years) | [O2](#O2) | Recalculate exposure with a single time unit |
-| O3 | Other | Table 1        | Total cholesterol (301–337 mg/dL; median = **338** mg/dL) | - | Correct IQR or Median |
-\endgroup
-
 
 #### O1 — Percent-change metric: ratio of medians, not per-subject {#O1}
 
@@ -361,18 +348,18 @@ $$
 \frac{\operatorname{median}(\Delta)}{\operatorname{median}(\text{baseline})}\times100\%.
 $$
 
-This definition differs from the customary per-participant percent change and can under- or over-state the typical effect (see table below).
+This definition differs from the customary per-participant percent change and can under- or over-state the typical effect. The table below illustrates this. It shows the paper's ratio of medians, and the per-subject mean and median percent change.
 
-| Outcome | Ratio-of-medians | Median % change (per subject) | Mean % change |
+| Outcome | Ratio-of-medians | Median % change | Mean % change |
 |:--|--:|--:|--:|
 | NCPV | 43% | 49.2% | 81.4% |
 | PAV  | 50% | 47.3% | 80.7% |
 
-*(participants with baseline = 0 excluded from % change calculations)*
+*(4 participants with baseline = 0 excluded from % change calculations for NCPV and PAV)*
 
 **Requested action**
 
-1. Report per-subject percent change with median, IQR, and 95% CI and specify how zero or near-zero baseline values were handled when computing percent change.
+1. Report per-subject percent change with median, IQR and specify how zero or near-zero baseline values were handled when computing percent change.
 2. Clarify that the published 43% and 50% are ratios of medians.
 
 
@@ -387,24 +374,17 @@ $$
 = \mathrm{LDL}_{\mathrm{KD\text{-}exp}}
 + Age_{\mathrm{KD\text{-}start}}\cdot \mathrm{LDL}_{\mathrm{preKD}}
 $$
-*Unit (as written):* dimensionally inconsistent
-
 **Issue (clarification)**
 
-- **Dimensional inconsistency:** the "lifetime" sum mixes **days** and **years**; these are not commensurate.
-- **Scale distortion:** the pre-KD term is ~**1/365** the magnitude of the day-based terms unless age is converted; if converted to days, the term becomes a near-linear **age surrogate** times one LDL value.
-- **Interpretability:** model coefficients are not in a single unit (mg·day/dL **+** mg·year/dL), hindering effect-size meaning and comparisons.
+- **Dimensional inconsistency:** the "lifetime" sum mixes **days** and **years** (mg·day/dL **+** mg·year/dL); these are not commensurate.
+- **Scale distortion:** the pre-KD term is ~1/365 the magnitude of the day-based terms; if converted to days, the term is a near-linear age surrogate times one LDL value.
 
 **Note.** It appears some Ketogenic Diet Exposure durations are inconsistent across the study.
 
 - Table 1 KD duration: mean **1,642.7 days (~4.5 y)**.
 - Table 3 caption: "LDL-C exposure on a ketogenic diet: mean **5.7 y**."
 
-**Requested fix.** Confirm KD duration. Use a single time unit (e.g., convert all time to **days** and label units), report a sensitivity dropping the pre-KD term, and consider also reporting the time-weighted mean LDL:
-$$
-\overline{\mathrm{LDL}}=\frac{\sum_{i}\mathrm{LDL}_{i}\,\Delta t_{i}}{\sum_{i}\Delta t_{i}}
-$$
-alongside total duration.
+**Requested action.** Confirm KD duration. Use a single time unit (e.g., convert all time to **days** and label units), report a sensitivity dropping the pre-KD term, and consider also reporting the time-weighted mean LDL alongside total duration.
 
 
 \newpage
