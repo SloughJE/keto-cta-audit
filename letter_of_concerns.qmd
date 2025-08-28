@@ -259,7 +259,7 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 $R^2\!\left(\Delta\mathrm{NCPV}\sim\mathrm{NCPV}_{\text{baseline}}\right)=0.49$
 while
 $R^2\!\left(\mathrm{NCPV}_{\text{follow-up}}\sim\mathrm{NCPV}_{\text{baseline}}\right)=0.96$.
- (this difference reflects noise amplification in change scores). Additionally the ICC for the follow-up ~ baseline model is 0.91^[The intraclass correlation coefficient (ICC) is the proportion of total variance attributable to between-participant differences. With two repeated measures per person, ICC can be estimated from a one-way ANOVA (mean squares). A high ICC (≈0.91–0.95) means baseline explains most follow-up variance.]
+ (this difference reflects noise amplification in change scores). Additionally the ICC^[The intraclass correlation coefficient (ICC) is the proportion of total variance attributable to between-participant differences. With two repeated measures per person, ICC can be estimated from a one-way ANOVA (mean squares). A high ICC (≈0.91–0.95) means baseline explains most follow-up variance.] for the follow-up ~ baseline model is 0.91
 The relevant quantity is the **partial R²** for the exposure conditional on baseline (and prespecified covariates) in an ANCOVA model:
 $$
 R^2_{\text{partial}}\!\big(\text{ApoB}\mid \mathrm{NCPV}_{\text{baseline}},\text{covariates}\big)
