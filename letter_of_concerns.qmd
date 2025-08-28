@@ -97,7 +97,7 @@ Email: john@jsdatascience.com
 ### Critical (C1–C5) {#appx-c}
 
 **Summary of Figure Issues (C1-C3).**
-Across Figures 1A–B and 2D–F, key elements in the publication (y-axis ranges; shaded "IQR" bands) cannot be reproduced from the data. Close inspection shows the y-axis numerals do not coincide with tick marks or gridlines, with non-uniform spacing by tick and by panel (ticks are absent in some panels), and an "IQR" band falls below the lowest observations. These per-tick, per-panel offsets are inconsistent with standard plotting output (which anchors labels to ticks), and likely introduced during figure export/annotation.
+Across Figures 1A–B and 2D–F, key elements in the publication (y-axis ranges; shaded "IQR" bands) cannot be reproduced from the data. Close inspection shows the y-axis numerals do not coincide with tick marks or gridlines, with non-uniform spacing by tick and by panel (ticks are absent in some panels), and an "IQR" band falls below the lowest observations. These per-tick, per-panel offsets are inconsistent with standard plotting output (which anchors labels to ticks), and appears introduced during figure export/annotation.
 
 \newpage
 
@@ -265,7 +265,7 @@ $$
 R^2_{\text{partial}}\!\big(\text{ApoB}\mid \mathrm{NCPV}_{\text{baseline}},\text{covariates}\big)
 =\frac{R^2_{\text{full}}-R^2_{\text{baseline+covariates}}}{1-R^2_{\text{baseline+covariates}}}\
 $$
-  Interpreting the **total** R² or signficance from a univariable model understates the contribution of ApoB beyond baseline and covariates.[@Cohen2003]
+  Interpreting the total R² or signficance from a univariable model understates the contribution of ApoB beyond baseline and covariates.[@Cohen2003]
 - Multiplicity is not addressed despite many tests; without a plan, familywise/type-I error is inflated and false positives are expected.
   - Table 3 has ~19 unique tests; repeating the same panel in two subgroups yields ~57 tests overall. The text references $\Delta$TPS analyses not shown, so the total is plausibly >70.
 - No confidence intervals for $\beta$ coefficients are reported. With modest $n$ and change-score models (which reduce precision), the results do not rule out clinically meaningful effects; "no association" wording is not supported without CIs.
@@ -280,6 +280,7 @@ $$
 3. **If association is the aim:**
    - Prespecify a primary adjustment set (e.g. baseline value of the same outcome, age, sex as confounders).
    - Report baseline-adjusted follow-up models (ANCOVA: follow-up outcome $\sim$ baseline outcome + exposure + prespecified covariates) as the main analysis, with effect estimates and 95% CIs; move univariable $\Delta$-models to the Supplement.
+   - Report partial R² of exposure conditional on baseline (and prespecified covariates)
    - Provide full diagnostics (linearity, residuals, influence; see [C5](#appx-c5)) and, where variance is non-constant, use heteroskedasticity-consistent (HC) standard errors.
 
 4. **If prediction is the aim:**
