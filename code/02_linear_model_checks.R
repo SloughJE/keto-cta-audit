@@ -212,11 +212,12 @@ ggsave(out_path, p,
 message("Diagnostic grid saved to: ", out_path)
 
 
-############
+##########################
+# C4: ΔTPS∼CAC: claimed association not reproduced
 # ΔTPS ~ CAC baseline
 # "(C, F) Only CAC is associated with changes in NCPV and TPS." (p. 7, Figure 2 caption)
 # model results indicate no association
-############
+#################################
 
 # C4b
 # model 
@@ -224,13 +225,16 @@ m_norm <- lm(delta_TPS ~ V1_CAC, data=df)
 summary(m_norm)
 confint(m_norm)["V1_CAC", ] # not significant
 
-###
 # count of 0s
 with(df, c(
   n                 = length(delta_TPS),
   zeros_delta_TPS   = sum(delta_TPS == 0),
   zeros_V1_CAC      = sum(V1_CAC == 0)
 ))
+
+#########
+#
+
 
 ##  Excess-zero test under fitted Normal LM: parametric bootstrap 
 ## Assumes integer-recorded outcome; ±0.5 window = "counts as zero".
@@ -262,18 +266,34 @@ m1 <- glm(I(delta_TPS==0) ~ V1_CAC,   family = binomial, data = df)
 anova(m0, m1, test = "LRT") 
 
 
-####
+###
+####################
+# M1 — Model strategy, reporting, multiplicity, and claim wording
+#
+############
+
+# univariable linear model on NCPV
+# note model assumptions not passed, reported for illustration of high R^2 of 0.96
+
+m_fb = lm(V2_Non_Calcified_Plaque_Volume ~ V1_Non_Calcified_Plaque_Volume, data = df)
+summary(m_fb) 
+# tests
+sh   <- shapiro.test(residuals(m_fb)) # violated
+bp   <- bptest(m_fb) # violated
+rst  <- resettest(m_fb, power = 2:3, type = "fitted") # passed
+# performance::check_model(m_fb)
 
 # Example ICC calculation on NCPV
 library(psych)
 dat <- df[, c("V1_Non_Calcified_Plaque_Volume",
-                      "V2_Non_Calcified_Plaque_Volume")]
+              "V2_Non_Calcified_Plaque_Volume")]
 
 out <- ICC(as.matrix(dat))   # subjects in rows, measures in columns
 out$results                 # table with ICC1, ICC2, ICC3, CIs, etc.
 
-# Example: extract ICC(1,1) and ICC(2,1)
+# extract ICC(1,1) and ICC(2,1)
 icc11 <- subset(out$results, type == "ICC1")[["ICC"]]
 icc21 <- subset(out$results, type == "ICC2")[["ICC"]]
 icc11
 icc21
+
