@@ -15,11 +15,11 @@ It reproduces the key figures, statistical checks, and numerical discrepancies c
 
 ## Dependencies
 * **R ≥ 4.2** (tested with R 4.4.1 on macOS)  
-* CRAN packages: `tidyverse`, `fs`, `performance`, `lmtest`, `see`, `gt`, `patchwork`, `ragg`, `ggtext`
+* CRAN packages: `tidyverse`, `fs`, `performance`, `lmtest`, `see`, `gt`, `patchwork`, `ragg`, `ggtext`,`psych`
 
 ```r
 install.packages(c("tidyverse","fs","performance","lmtest",
-                   "see","gt","patchwork","ragg","ggtext"))
+                   "see","gt","patchwork","ragg","ggtext","psych"))
 ```
 
 ## Directory layout
@@ -29,7 +29,7 @@ install.packages(c("tidyverse","fs","performance","lmtest",
 ├─ code/
 │  ├─ 00_download_data.R         # grabs public dataset (from: Citizen Science Foundation)
 │  ├─ 01_reproduce_figures.R     # reproduces Fig 1 & Fig 2F   ⇢  C1–C3
-│  ├─ 02_linear_model_checks.R   # diagnostics & table         ⇢  C5
+│  ├─ 02_linear_model_checks.R   # diagnostics & table         ⇢  C5 / M1
 │  ├─ 03_pct_change_demo.R       # "percent change" demo       ⇢  O1
 │  └─ 04_verify_against_paper.R  # sanity-checks vs paper        
 ├─ data/                         # raw & processed CSVs
@@ -48,7 +48,7 @@ install.packages(c("tidyverse","fs","performance","lmtest",
 |--------|---------|-----------------|
 | **00_download_data.R** | Download · unzip public CSV; fall back to bundled copy. | – |
 | **01_reproduce_figures.R** | Recreate Fig 1A/B & Fig 2F with correct axes/IQR shading. | C1–C3 |
-| **02_linear_model_checks.R** | (a) Formal assumption tests (Breusch–Pagan, Shapiro, RESET) turned into Table C5, (b) `performance::check_model()` grid for ΔNCPV ∼ CAC<sub>bl</sub>. | C5 |
+| **02_linear_model_checks.R** | (a) Formal assumption tests (Breusch–Pagan, Shapiro, RESET) turned into Table C5, (b) `performance::check_model()` grid for ΔNCPV ∼ CAC<sub>bl</sub>. Supplementary analysis for M1 | C5, M1 |
 | **03_pct_change_demo.R** | Compares study’s ratio-of-medians to participant-level % change; prints median / mean / IQR. | O1 |
 | **04_verify_against_paper.R** | Verifies baseline means/medians against Table 1 and text | – |
 
