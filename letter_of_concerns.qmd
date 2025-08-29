@@ -97,7 +97,7 @@ Email: john@jsdatascience.com
 ### Critical (C1–C5) {#appx-c}
 
 **Summary of Figure Issues (C1-C3).**
-Across Figures 1A–B and 2D–F, key elements in the publication (y-axis ranges; shaded "IQR" bands) cannot be reproduced from the data. Close inspection shows the y-axis numerals do not coincide with tick marks or gridlines, with non-uniform spacing by tick and by panel (ticks are absent in some panels), and an "IQR" band falls below the lowest observations. These per-tick, per-panel offsets are inconsistent with standard plotting output (which anchors labels to ticks), and appear to have been introduced during figure export/annotation.
+Across Figures 1A–B and 2D–F, key elements in the publication (y-axis ranges; shaded "IQR" bands) cannot be reproduced from the data. Close inspection shows the y-axis numerals do not coincide with tick marks or gridlines, with non-uniform spacing by tick and by panel (ticks are absent in some panels), and an "IQR" band falls below the lowest observations. These per-tick, per-panel offsets are inconsistent with standard plotting output (which anchors labels to ticks), and appear consistent with a post-export overlay.
 
 Code for reproduction: `code/01_reproduce_figures.R` ([keto-cta-audit repository](https://github.com/SloughJE/keto-cta-audit))
 
