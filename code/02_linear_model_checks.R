@@ -97,7 +97,7 @@ fmt_num <- function(x, digits = 2) ifelse(
   is.na(x), "—", formatC(x, format = "f", digits = digits)
 )
 
-flag <- function(p, red = 0.05, amber = 0.10) dplyr::case_when(
+flag <- function(p, red = 0.05, amber = 0.06) dplyr::case_when(
   is.na(p)  ~ "—",
   p < red   ~ "Violation",
   p < amber ~ "Borderline",
@@ -178,7 +178,7 @@ gt_tbl <- assumption_summary %>%
   )
 
 gtsave(gt_tbl, "figures/reproduced/LM_assumptions.png", vwidth = 1400, vheight = 900, expand = 0)
-
+gt_tbl
 
 
 #############

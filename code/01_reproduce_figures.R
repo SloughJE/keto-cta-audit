@@ -134,6 +134,7 @@ figure_1A = plot_two_timepoints(df,
     label1 = "Baseline", label2 = "1 Year"
 )
 
+figure_1A
 
 
 # Figure 1B
@@ -145,7 +146,7 @@ figure_1B = plot_two_timepoints(df,
                                 
 )
 
-
+figure_1B
 
 
 #### plot 2F
