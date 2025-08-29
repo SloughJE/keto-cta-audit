@@ -2,6 +2,14 @@
 This repository accompanies the "Letter of Concern" submitted to *JACC: Advances* about the paper [Longitudinal Data From the KETO-CTA Study: Plaque Predicts Plaque, ApoB Does Not; **Soto-Mota et al. (2025)**](https://www.jacc.org/doi/10.1016/j.jacadv.2025.101686).  
 It reproduces the key figures, statistical checks, and numerical discrepancies cited in the appendix.
 
+## Data source and variable scope
+
+CT angiography–derived plaque-burden metrics (PAV, TPS, CAC, NCPV) at baseline and follow-up were obtained from the 
+Citizen Science Foundation [keto-CTA repository](https://citizensciencefoundation.org/keto-cta/). These are the same per-participant plaque metrics used in the publication; 
+basic levels and change checks match the reported values. No other variables (e.g., ApoB, LDL or other lipids, demographics) are 
+available. Analyses are therefore restricted to specifications that rely solely on plaque-burden metrics; 
+models requiring non-plaque variables could not be examined.
+
 ## Usage
 
 1. Clone the repository and open the `keto-cta-audit.Rproj` in RStudio (or set the working directory to the project root in any R session).  

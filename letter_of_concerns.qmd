@@ -34,7 +34,7 @@ link-citations: true
 RE: Post-publication concern regarding "Longitudinal Data From the KETO-CTA Study: Plaque Predicts Plaque, ApoB Does Not" (Soto-Mota *et al.* JACC: Advances, 2025; [doi:10.1016/j.jacadv.2025.101686](https://doi.org/10.1016/j.jacadv.2025.101686))
 
 
-Dear Dr. Silversides,
+Dear Dr. Silversides and the JACC: Advances editorial team,
 
 I am submitting a post-publication concern regarding the article cited above. An independent re-analysis identifies material issues that could mislead readers. Because the findings may inform lipid-management decisions, I request editorial assessment and correction. Specific concerns are summarized below and documented in detail in the Appendix.
 
@@ -46,7 +46,7 @@ I am submitting a post-publication concern regarding the article cited above. An
 
 **Major issues**
 
-(i) **Model strategy** ([M1](#appx-m1)): The paper relies on univariable change-score models; field-standard is ANCOVA (follow-up ∼ baseline + exposure + covariates).[@vanrosendael2021; @han2020] ANCOVA avoids baseline–change artifacts and yields clearer estimates.[@vickers2001; @tu2007] Omitting age/sex/BP (available in the dataset) leaves associations likely confounded.[@lehman2009; @han2020] No reported 95% CIs for $\beta$. "Predicts" is used for association models without validated prognostic performance.[@moons2015] High baseline–follow-up correlation; univariable Δ-model R² is not decision relevant, use partial R².
+(i) **Model strategy** ([M1](#appx-m1)): The paper relies on univariable change-score models; field-standard is ANCOVA (follow-up $\sim$ baseline + exposure + covariates).[@vanrosendael2021; @han2020] ANCOVA avoids baseline–change artifacts and yields clearer estimates.[@vickers2001; @tu2007] Omitting age/sex/BP (available in the dataset) leaves associations likely confounded.[@lehman2009; @han2020] No reported 95% CIs for $\beta$. "Predicts" is used for association models without validated prognostic performance.[@moons2015] High baseline–follow-up correlation; univariable $\Delta$-model R² is not decision-relevant; use partial R².
 (ii) **Bayes factors** ([M2](#appx-m2)): Not prespecified; uses r-scale = 0.8, described as "moderately informative" yet above package’s "ultrawide"; same r-scale applied to all models with justification only for one; no standard sensitivity analysis; treats Bayes factors as posterior probabilities. [@bayesfactor_regressionbf; @kruschke_2021; @kass_raftery_1995]
 
 *Additional items and details are described in the Appendix.*
@@ -57,7 +57,7 @@ I am submitting a post-publication concern regarding the article cited above. An
 2. **Analyses & reporting**: Align claims with results (include TPS models or remove claims); make ANCOVA the primary analysis; report $\beta$, 95% CI, diagnostics; if diagnostics fail, re-specify (e.g., nonlinear terms; HC/sandwich SEs); use association language and reserve "predicts/predictor" for validated prognostic models; either remove Bayes-factor claims or document prespecification and sensitivity.
 3. **Independent statistical review**: Given the scope of figure and modeling issues, I respectfully request that the journal obtain an external statistical review and, depending on the findings, issue the appropriate notice (e.g., Author Correction or stronger).
 
-**Materials provided:** Appendix (included below); reproducibility [repository](https://github.com/SloughJE/keto-cta-audit)[@slough_keto_cta_audit_repo]
+**Materials provided:** Appendix (included below); reproducibility GitHub [repository](https://github.com/SloughJE/keto-cta-audit)[@slough_keto_cta_audit_repo]
 
 I have no conflicts of interest related to this work and am available to provide any additional information.
 
@@ -87,9 +87,9 @@ Email: john@jsdatascience.com
 
 \endgroup
 
-**Data provenance.** Individual-level plaque metrics used for reproductions were obtained from the Citizen Science Foundation keto-CTA repository.[@csf_ketocta] The Citizen Science Foundation also funded the study (per the article’s Funding/Disclosures). Basic checks (baseline and change statistics) match the publication.
+**Data source and variable scope.** CT angiography–derived plaque-burden metrics (PAV, TPS, CAC, NCPV) at baseline and follow-up were obtained from the Citizen Science Foundation keto-CTA repository [@csf_ketocta]. These are the same per-participant plaque metrics used in the publication; basic levels and change checks match the reported values. No other variables (e.g., ApoB, LDL or other lipids, demographics) are available. Analyses are therefore restricted to specifications that rely solely on plaque-burden metrics; models requiring non-plaque variables could not be examined. Per the article's Funding Support, the Citizen Science Foundation funded the study.
 
-**Reproduction materials**. All reproduced figures and analyses and are in the [keto-cta-audit](https://github.com/SloughJE/keto-cta-audit) repository with instructions in the README.
+**Reproduction materials**. All reproduced figures and analyses are in the [keto-cta-audit](https://github.com/SloughJE/keto-cta-audit) repository with instructions in the README.
 
 
 **Abbreviations**: NCPV, non-calcified plaque volume; PAV, percent atheroma volume; TPS, total plaque score; CAC, coronary artery calcium; $\Delta$ denotes change/difference (e.g., $\Delta$TPS = change in TPS from baseline to 1 year follow-up)
@@ -97,7 +97,7 @@ Email: john@jsdatascience.com
 ### Critical (C1–C5) {#appx-c}
 
 **Summary of Figure Issues (C1-C3).**
-Across Figures 1A–B and 2D–F, key elements in the publication (y-axis ranges; shaded "IQR" bands) cannot be reproduced from the data. Close inspection shows the y-axis numerals do not coincide with tick marks or gridlines, with non-uniform spacing by tick and by panel (ticks are absent in some panels), and an "IQR" band falls below the lowest observations. These per-tick, per-panel offsets are inconsistent with standard plotting output (which anchors labels to ticks), and appears introduced during figure export/annotation.
+Across Figures 1A–B and 2D–F, key elements in the publication (y-axis ranges; shaded "IQR" bands) cannot be reproduced from the data. Close inspection shows the y-axis numerals do not coincide with tick marks or gridlines, with non-uniform spacing by tick and by panel (ticks are absent in some panels), and an "IQR" band falls below the lowest observations. These per-tick, per-panel offsets are inconsistent with standard plotting output (which anchors labels to ticks), and appear to have been introduced during figure export/annotation.
 
 \newpage
 
@@ -125,7 +125,7 @@ The reproduction uses the correct 0–20\% range. The underlying data are unchan
 
 \pairfig{figures/published//Figure1A.jpg}{figures/reproduced/Figure1A.png}{Left: published (shading is approximately anchored at zero). Right: reproduced, shading is above zero).}{0.47}{0.51}
 
-**Note.** It is assumed that the shaded band is meant to depict the interquartile range (25th–75th percentiles) across subjects at each timepoint (baseline and 1 year), not the IQR of change, a one dimensional interval metric.
+**Note.** It is assumed that the shaded band is meant to depict the interquartile range (25th–75th percentiles) across subjects at each timepoint (baseline and 1 year), not the IQR of change, a one-dimensional interval metric.
 
 Empirical 25th–75th percentiles across subjects at each timepoint:
 
@@ -145,7 +145,7 @@ Empirical 25th–75th percentiles across subjects at each timepoint:
 \pairfig{figures/published//Figure2F.jpg}{figures/reproduced/Figure2F.png}{Left: published (y-axis labeled -1 to 4). Right: reproduced (axis \(-1\) to 6); OLS \(lm(y \sim x)\) line with SE band.\label{fig:c3f}}{0.47}{0.47}
 
 **Issue (error).** Axis shown as –1 to 4; underlying data require –1 to 6.
-Similar to Figure 1B, Panel 2F published panel's y-axis label is inconsistent with the plotted scale. The label indicates -1 to 4, but the range should be used is -1 to 6. The same mislabeling of y-axis ticks is visible in panels **2D** and **2E** (not shown). This can mislead readers about the plotted domain and relative spread.
+Similar to Figure 1B, Panel 2F published panel's y-axis label is inconsistent with the plotted scale. The label indicates -1 to 4, but the range should be -1 to 6. The same mislabeling of y-axis ticks is visible in panels **2D** and **2E** (not shown). This can mislead readers about the plotted domain and relative spread.
 
 **Requested correction.**  
 Correct the y-axis tick labels to reflect the actual plotted range in each panel.  
@@ -195,7 +195,7 @@ Although Table 3 shows no $\Delta$TPS outcome models, the Figure 2 caption asser
 
 > "(C, F) Only CAC is associated with changes in NCPV and TPS." (p. 7)
 
-Reproducing the stated model univariable linear model does not support an association: $\Delta$TPS $\sim$ CAC$_{bl}$ gives $\beta\ = 0.0017$ (95% CI: −0.0004 to 0.0038), $P = 0.11$.
+Reproducing the stated univariable linear model does not support an association: $\Delta$TPS $\sim$ CAC$_{bl}$ gives $\beta\ = 0.0017$ (95% CI: −0.0004 to 0.0038), $P = 0.11$.
 Additionally:
 
 - $\Delta\mathrm{TPS}$ has a point mass at $0$ with small $\pm$ values (58/100 zeros).
@@ -258,7 +258,7 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 - Total R² (or p-values) from univariable models is not informative about an exposure’s contribution when baseline to follow-up correlation is very high. Specifically, variation in $\mathrm{NCPV}_{\text{follow-up}}$ is dominated by $\mathrm{NCPV}_{\text{baseline}}$ due to within-person persistence (especially after 1 year), so univariable models such as $\Delta\mathrm{NCPV}\sim\mathrm{ApoB}$ or $\mathrm{NCPV}_{\text{follow-up}}\sim\mathrm{ApoB}$ will show low **total** $R^2$ by construction. For example,
 $R^2\!\left(\Delta\mathrm{NCPV}\sim\mathrm{NCPV}_{\text{baseline}}\right)=0.49$
 while
-$R^2\!\left(\mathrm{NCPV}_{\text{follow-up}}\sim\mathrm{NCPV}_{\text{baseline}}\right)=0.96$ (independent re-analysis; not reported in study). Additionally the ICC^[The intraclass correlation coefficient (ICC) is the proportion of total variance attributable to between-participant differences. With two repeated measures per person, ICC can be estimated from a one-way ANOVA (mean squares). A high ICC (≈0.91) means baseline explains most follow-up variance.] for the follow-up ~ baseline model is 0.91
+$R^2\!\left(\mathrm{NCPV}_{\text{follow-up}}\sim\mathrm{NCPV}_{\text{baseline}}\right)=0.96$ (independent re-analysis; not reported in study). Additionally the ICC^[The intraclass correlation coefficient (ICC) is the proportion of total variance attributable to between-participant differences. With two repeated measures per person, ICC can be estimated from a one-way ANOVA (mean squares). A high ICC (0.91) means baseline explains most follow-up variance.] for the follow-up $\sim$ baseline model is 0.91
 The relevant quantity is the **partial R²** for the exposure conditional on baseline (and prespecified covariates) in an ANCOVA model:
 $$
 R^2_{\text{partial}}\!\big(\text{ApoB}\mid \mathrm{NCPV}_{\text{baseline}},\text{covariates}\big)
@@ -266,7 +266,7 @@ R^2_{\text{partial}}\!\big(\text{ApoB}\mid \mathrm{NCPV}_{\text{baseline}},\text
 $$
   Interpreting the total R² or significance from a univariable model understates the contribution of ApoB beyond baseline and covariates.[@Cohen2003]
 - Multiplicity is not addressed despite many hypothesis tests; without a plan, familywise/type-I error is inflated and false positives are expected.
-  - Table 3 has ~19 unique tests; repeating the same panel in two subgroups yields ~57 tests overall. The text references $\Delta$TPS analyses not shown, so the total is plausibly >70.
+  - Table 3 has $\sim$19 unique tests; repeating the same panel in two subgroups yields $\sim$57 tests overall. The text references $\Delta$TPS analyses not shown, so the total is plausibly >70.
 - No confidence intervals for $\beta$ coefficients are reported. With modest $n$ and change-score models (which reduce precision), the results do not rule out clinically meaningful effects; "no association" wording is not supported without CIs.
 - "Predicts/predictor" implies prognostic (prediction) standards[@moons2015], e.g. multivariable specification, internal validation, calibration/discrimination, which are not presented. If claims are associational, wording should reflect association rather than prediction.
 
@@ -299,12 +299,12 @@ $$
 
 > "these data suggest it is 6 to 10 times more likely that the hypothesis of no association between these variables (the null) is true as compared to the alternative." (p. 6)
 
-**Issue (mis-specification, inconsistency)**
+**Issue (mis-specification, inconsistency, interpretation)**
 
 The paper's sole rationale for adding a Bayes-factor analysis is that it "adds credence to finding there is no association". A Bayes factor quantifies evidence relative to a specified prior and model; without prespecified or externally justified priors and a sensitivity analysis, a post-hoc BF does not provide independent confirmation of 'no association.'
 
 - `regressionBF` used with `rscale = 0.8` and described as "moderately informative."
-  - Package named defaults: $\text{medium}=\frac{\sqrt{2}}{4}\approx 0.354 \;|\; \text{wide}=0.5 \;|\; \text{ultrawide}=\frac{\sqrt{2}}{2}\approx 0.707$.[@bayesfactor_regressionbf] 0.8 is not moderate.
+  - Package named defaults: $\text{medium}=\frac{\sqrt{2}}{4}\approx 0.354 \;|\; \text{wide}=0.5 \;|\; \text{ultrawide}=\frac{\sqrt{2}}{2}\approx 0.707$. 0.8 is not moderate.[@bayesfactor_regressionbf]
 - The same extra-wide r-scale is applied to every model with justification for only the plaque $\sim$ ApoB model.
 - No prior-sensitivity analysis (a standard recommendation for Bayes-factor reporting[@kruschke_2021]) was presented 
 - No indication the BF test was prespecified.
@@ -376,11 +376,11 @@ $$
 **Issue (clarification)**
 
 - **Dimensional inconsistency:** the "lifetime" sum mixes **days** and **years** (mg·day/dL **+** mg·year/dL); these are not commensurate.
-- **Scale distortion:** the pre-KD term is ~1/365 the magnitude of the day-based terms; if converted to days, the term is a near-linear age surrogate times one LDL value.
+- **Scale distortion:** the pre-KD term is $\sim$1/365 the magnitude of the day-based terms; if converted to days, the term is a near-linear age surrogate times one LDL value.
 
 **Note.** It appears some Ketogenic Diet Exposure durations are inconsistent across the study.
 
-- Table 1 KD duration: mean **1,642.7 days (~4.5 y)**.
+- Table 1 KD duration: mean **1,642.7 days ($\sim$4.5 y)**.
 - Table 3 caption: "LDL-C exposure on a ketogenic diet: mean **5.7 y**."
 
 **Requested action.** Confirm KD duration. Use a single time unit (e.g., convert all time to **days** and label units), report a sensitivity dropping the pre-KD term, and consider also reporting the time-weighted mean LDL alongside total duration.
