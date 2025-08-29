@@ -219,11 +219,11 @@ message("Diagnostic grid saved to: ", out_path)
 # model results indicate no association
 #################################
 
-# C4b
+# C4
 # model 
-m_norm <- lm(delta_TPS ~ V1_CAC, data=df)
-summary(m_norm)
-confint(m_norm)["V1_CAC", ] # not significant
+m_tps_cac <- lm(delta_TPS ~ V1_CAC, data=df)
+summary(m_tps_cac)
+confint(m_tps_cac)["V1_CAC", ] # not significant
 
 # count of 0s
 with(df, c(
