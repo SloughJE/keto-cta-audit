@@ -87,7 +87,7 @@ Email: john@jsdatascience.com
 
 \endgroup
 
-**Data source and variable scope.** CT angiography–derived plaque-burden metrics (PAV, TPS, CAC, NCPV) at baseline and follow-up were obtained from the Citizen Science Foundation keto-CTA repository [@csf_ketocta]. These are the same per-participant plaque metrics used in the publication; basic levels and change checks match the reported values. No other variables (e.g., ApoB, LDL or other lipids, demographics) are available. Analyses are therefore restricted to specifications that rely solely on plaque-burden metrics; models requiring non-plaque variables could not be examined. Per the article's Funding Support, the Citizen Science Foundation funded the study.
+**Data source and variable scope.** CT angiography–derived plaque-burden metrics (PAV, TPS, CAC, NCPV) at baseline and follow-up were obtained from the Citizen Science Foundation keto-CTA repository [@csf_ketocta]. These are the same per-participant plaque metrics used in the publication; summary statistics match the reported values from the study. No other variables (e.g., ApoB, LDL or other lipids, demographics) are available. Analyses are therefore restricted to specifications that rely solely on plaque-burden metrics; models requiring non-plaque variables could not be examined. Per the article's Funding Support, the Citizen Science Foundation funded the study.
 
 **Reproduction materials**. All reproduced figures and analyses are in the [keto-cta-audit](https://github.com/SloughJE/keto-cta-audit) repository with instructions in the README.
 
@@ -98,6 +98,8 @@ Email: john@jsdatascience.com
 
 **Summary of Figure Issues (C1-C3).**
 Across Figures 1A–B and 2D–F, key elements in the publication (y-axis ranges; shaded "IQR" bands) cannot be reproduced from the data. Close inspection shows the y-axis numerals do not coincide with tick marks or gridlines, with non-uniform spacing by tick and by panel (ticks are absent in some panels), and an "IQR" band falls below the lowest observations. These per-tick, per-panel offsets are inconsistent with standard plotting output (which anchors labels to ticks), and appear to have been introduced during figure export/annotation.
+
+Code for reproduction: `code/01_reproduce_figures.R` ([keto-cta-audit repository](https://github.com/SloughJE/keto-cta-audit))
 
 \newpage
 
@@ -189,13 +191,17 @@ A review of Table 3 Model Results from the study confirms these omissions: it re
 
 ##### $\Delta$TPS$\sim$CAC: claimed association not reproduced
 
+Code for reproduction: `code/02_linear_model_checks.R` ([keto-cta-audit repository](https://github.com/SloughJE/keto-cta-audit))
+
 Although Table 3 shows no $\Delta$TPS outcome models, the Figure 2 caption asserts an association with baseline CAC.
 
 **Quoted claim (paper).** 
 
 > "(C, F) Only CAC is associated with changes in NCPV and TPS." (p. 7)
 
-Reproducing the stated univariable linear model does not support an association: $\Delta$TPS $\sim$ CAC$_{bl}$ gives $\beta\ = 0.0017$ (95% CI: −0.0004 to 0.0038), $P = 0.11$.
+Reproducing the stated univariable linear model $\Delta$TPS $\sim$ CAC$_{bl}$ yields $\beta\ = 0.0017$ (95% CI: −0.0004 to 0.0038), $P = 0.11$, which does not support an association.
+
+
 Additionally:
 
 - $\Delta\mathrm{TPS}$ has a point mass at $0$ with small $\pm$ values (58/100 zeros).
@@ -206,11 +212,12 @@ Additionally:
 **Requested correction:** amend the TPS claim, or provide supporting analyses with appropriate modeling (see [M1](#appx-m1)) and full reporting (model specification, coefficients with 95% CIs, and diagnostics).
 
 
-
 #### C5 — Model assumptions: diagnostics indicate violations {#appx-c5}
 
 **Scope.** Only plaque metrics were available to audit (CAC, NCPV, TPS, PAV; see **Data provenance**), so lipid/demographic covariates (ApoB, LDL-C, age, sex, BP) were not available. Four univariable change-score models were tested:
 $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\sim$ PAV$_{bl}$, $\Delta$NCPV $\sim$ TPS$_{bl}$.
+
+Code for reproduction: `code/02_linear_model_checks.R` ([keto-cta-audit repository](https://github.com/SloughJE/keto-cta-audit))
 
 **Quoted claim (paper).** 
 
@@ -258,7 +265,7 @@ $\Delta$NCPV $\sim$ CAC$_{bl}$, $\Delta$NCPV $\sim$ NCPV$_{bl}$, $\Delta$NCPV $\
 - Total R² (or p-values) from univariable models is not informative about an exposure’s contribution when baseline to follow-up correlation is very high. Specifically, variation in $\mathrm{NCPV}_{\text{follow-up}}$ is dominated by $\mathrm{NCPV}_{\text{baseline}}$ due to within-person persistence (especially after 1 year), so univariable models such as $\Delta\mathrm{NCPV}\sim\mathrm{ApoB}$ or $\mathrm{NCPV}_{\text{follow-up}}\sim\mathrm{ApoB}$ will show low **total** $R^2$ by construction. For example,
 $R^2\!\left(\Delta\mathrm{NCPV}\sim\mathrm{NCPV}_{\text{baseline}}\right)=0.49$
 while
-$R^2\!\left(\mathrm{NCPV}_{\text{follow-up}}\sim\mathrm{NCPV}_{\text{baseline}}\right)=0.96$ (independent re-analysis; not reported in study). Additionally the ICC^[The intraclass correlation coefficient (ICC) is the proportion of total variance attributable to between-participant differences. With two repeated measures per person, ICC can be estimated from a one-way ANOVA (mean squares). A high ICC (0.91) means baseline explains most follow-up variance.] for the follow-up $\sim$ baseline model is 0.91
+$R^2\!\left(\mathrm{NCPV}_{\text{follow-up}}\sim\mathrm{NCPV}_{\text{baseline}}\right)=0.96$ (independent re-analysis^[Code for reproduction: `code/02_linear_model_checks.R` ([keto-cta-audit repository](https://github.com/SloughJE/keto-cta-audit))]; not reported in study). Additionally the ICC^[The intraclass correlation coefficient (ICC) is the proportion of total variance attributable to between-participant differences. With two repeated measures per person, ICC can be estimated from a one-way ANOVA (mean squares). A high ICC (0.91) means baseline explains most follow-up variance.] for the follow-up $\sim$ baseline model is 0.91
 The relevant quantity is the **partial R²** for the exposure conditional on baseline (and prespecified covariates) in an ANCOVA model:
 $$
 R^2_{\text{partial}}\!\big(\text{ApoB}\mid \mathrm{NCPV}_{\text{baseline}},\text{covariates}\big)
@@ -334,6 +341,8 @@ Specify the causal estimand with a DAG. If mediation is intended: fit $\text{Med
 ### Other — Additional analysis & reporting issues {#appx-other}
 
 #### O1 — Percent-change metric: ratio of medians, not per-subject {#O1}
+
+Code for reproduction: `code/03_pct_change_demo.R` ([keto-cta-audit repository](https://github.com/SloughJE/keto-cta-audit))
 
 **Quote**
 
