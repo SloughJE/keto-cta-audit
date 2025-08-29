@@ -201,6 +201,7 @@ p        <- plot(cm_list) + plot_annotation(
   title = "ΔNCPV ~ CAC_bl",
   theme = theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 )
+p
 
 # save
 out_path <- "figures/reproduced/checkmodel_deltaNCPV_CAC.png"
