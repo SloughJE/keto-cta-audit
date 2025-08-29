@@ -56,7 +56,7 @@ install.packages(c("tidyverse","fs","performance","lmtest",
 |--------|---------|-----------------|
 | **00_download_data.R** | Download · unzip public CSV; fall back to bundled copy. | – |
 | **01_reproduce_figures.R** | Recreate Fig 1A/B & Fig 2F with correct axes/IQR shading. | C1–C3 |
-| **02_linear_model_checks.R** | (a) Formal assumption tests (Breusch–Pagan, Shapiro, RESET) turned into Table C5, (b) `performance::check_model()` grid for ΔNCPV ∼ CAC<sub>bl</sub>. $\Delta$TPS$\sim$CAC model check. Supplementary analysis for M1 | C5, M1 |
+| **02_linear_model_checks.R** | (a) Formal assumption tests (Breusch–Pagan, Shapiro, RESET) turned into Table C5, (b) `performance::check_model()` grid for ΔNCPV ∼ CAC<sub>bl</sub>. ΔTPS ∼ CAC<sub>bl model check. Supplementary analysis for M1 | C5, M1 |
 | **03_pct_change_demo.R** | Compares study’s ratio-of-medians to participant-level % change; prints median / mean / IQR. | O1 |
 | **04_verify_against_paper.R** | Verifies baseline means/medians against Table 1 and text | – |
 
