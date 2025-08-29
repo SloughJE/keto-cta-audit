@@ -37,7 +37,7 @@ install.packages(c("tidyverse","fs","performance","lmtest",
 ├─ code/
 │  ├─ 00_download_data.R         # grabs public dataset (from: Citizen Science Foundation)
 │  ├─ 01_reproduce_figures.R     # reproduces Fig 1 & Fig 2F   ⇢  C1–C3
-│  ├─ 02_linear_model_checks.R   # diagnostics & table         ⇢  C5 / M1
+│  ├─ 02_linear_model_checks.R   # diagnostics & table         ⇢  C5 / M1; (C4)
 │  ├─ 03_pct_change_demo.R       # "percent change" demo       ⇢  O1
 │  └─ 04_verify_against_paper.R  # sanity-checks vs paper        
 ├─ data/                         # raw & processed CSVs
