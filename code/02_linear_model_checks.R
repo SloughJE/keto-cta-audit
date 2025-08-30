@@ -240,8 +240,8 @@ with(df, c(
 ##  Excess-zero test under fitted Normal LM: parametric bootstrap 
 ## Assumes integer-recorded outcome; ±0.5 window = "counts as zero".
 set.seed(1)
-mu  <- predict(m_norm)
-sig <- sigma(m_norm)
+mu  <- predict(m_tps_cac)
+sig <- sigma(m_tps_cac)
 n   <- length(mu)
 S_obs <- sum(df$delta_TPS == 0)
 win <- 0.5
