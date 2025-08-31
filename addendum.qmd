@@ -1,0 +1,45 @@
+---
+title: ""
+author: ""
+format:
+  pdf:
+    number-sections: false
+    toc: false
+    include-in-header:
+      text: |
+        \usepackage{float}
+        \usepackage{amsmath}
+        \usepackage{graphicx}
+        \usepackage[none]{hyphenat}
+        % simple helpers: side-by-side pair and single figure
+        \newcommand{\pairfig}[5]{%
+          \begin{figure}[H]\centering
+          \begin{minipage}{#4\linewidth}\includegraphics[width=\linewidth]{#1}\end{minipage}\hfill
+          \begin{minipage}{#5\linewidth}\includegraphics[width=\linewidth]{#2}\end{minipage}
+          \caption{#3}\end{figure}}
+        \newcommand{\singlefig}[3]{%
+          \begin{figure}[H]\centering
+          \includegraphics[width=#3\linewidth]{#1}
+          \caption{#2}\end{figure}}
+fontsize: 11pt
+geometry: margin=1in
+
+---
+
+# Addendum
+
+## Clarification on partial R² reporting suggestion
+
+2025-08-31
+
+
+In the letter of concern I stated that the "relevant quantity is the **partial R²** for the exposure conditional on baseline (and prespecified covariates) in an ANCOVA model" and suggested reporting "partial R² of exposure conditional on baseline (and prespecified covariates)". While this is appropriate in OLS ANCOVA, a clarification should be made.
+
+In simple OLS settings, total/adjusted/partial R² can summarize fit. However, this does not generalize cleanly to more advanced models commonly used in this area. There is no single, standard R² across GLMs, mixed-effects models, or hurdle/two-part models, and available analogues are model-dependent and not directly comparable.
+
+The study’s linear models violate standard OLS assumptions (nonlinearity, heteroskedasticity, non-normal residuals). Therefore, a non-OLS specification should be used, and a standard R² and partial R² are not applicable.
+
+The recommendation would be to report the coefficient ($\beta$) with 95% CI, and state effects on the outcome scale rather than as proportions of residual variance. For example: *Each 10 mg/dL higher ApoB is associated with a +0.25 percentage-point change in plaque progression*.
+
+
+

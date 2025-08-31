@@ -70,6 +70,15 @@ The PDF is provided as a frozen, archival copy of what was sent, while the `.qmd
 
 Note: This repository is an independent statistical audit accompanying a letter of concern. It is not affiliated with the original study authors or their institutions.
 
+
+## Addendum
+
+`addendum.pdf`
+
+Addendum added for any clarifications or updates.
+
+- added clarification about partial R² suggestion
+
 ## Re-use
 
 The code is released under MIT License; data originate from the [Citizen Science Foundation Keto-CTA repository](https://citizensciencefoundation.org/keto-cta/).
