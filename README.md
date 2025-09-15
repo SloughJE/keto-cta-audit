@@ -78,6 +78,7 @@ Note: This repository is an independent statistical audit accompanying a letter 
 Addendum added for any clarifications or updates.
 
 - added clarification about partial R² suggestion
+- added diagnostic plots of other plaque metric models
 
 ## Re-use
 
