@@ -42,4 +42,12 @@ The study’s linear models violate standard OLS assumptions (nonlinearity, hete
 The recommendation would be to report the coefficient ($\beta$) with 95% CI, and state effects on the outcome scale rather than as proportions of residual variance. For example: *Each 10 mg/dL higher ApoB is associated with a +0.25 percentage-point change in plaque progression*.
 
 
+## Adding Diagnostic plots for other models with other plaque metrics
 
+2025-09-15
+
+\singlefig{figures/reproduced/checkmodel_deltaNCPV_NCPV.png}{\texttt{performance::check\_model(lm(}$\Delta$NCPV $\sim$ NCPV$_{bl}$\texttt{))} output for the reported change-score model}{0.87}
+
+\singlefig{figures/reproduced/checkmodel_deltaNCPV_PAV.png}{\texttt{performance::check\_model(lm(}$\Delta$NCPV $\sim$ PAV$_{bl}$\texttt{))} output for the reported change-score model}{0.87}
+
+\singlefig{figures/reproduced/checkmodel_deltaNCPV_TPS.png}{\texttt{performance::check\_model(lm(}$\Delta$NCPV $\sim$ TPS$_{bl}$\texttt{))} output for the reported change-score model}{0.87}

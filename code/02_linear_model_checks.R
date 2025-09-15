@@ -298,3 +298,45 @@ icc21 <- subset(out$results, type == "ICC2")[["ICC"]]
 icc11
 icc21
 
+#########
+
+# adding diagnostic plots for other plaque models
+
+# V1 NCPV
+m_plaque   <- lm(delta_NCPV ~ V1_Non_Calcified_Plaque_Volume, data = df)
+cm_list <- performance::check_model(m_plaque)   # list
+p        <- plot(cm_list) + plot_annotation(
+  title = "ΔNCPV ~ NCPV_bl",
+  theme = theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+)
+out_path <- "figures/reproduced/checkmodel_deltaNCPV_NCPV.png"
+ggsave(out_path, p,
+       device = ragg::agg_png,
+       width = 8, height = 10, units = "in",
+       dpi = 800, bg = "white")
+
+# V1_Percent_Atheroma_Volume
+m_plaque   <- lm(delta_NCPV ~ V1_Percent_Atheroma_Volume, data = df)
+cm_list <- performance::check_model(m_plaque)   # list
+p        <- plot(cm_list) + plot_annotation(
+  title = "ΔNCPV ~ PAV_bl",
+  theme = theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+)
+out_path <- "figures/reproduced/checkmodel_deltaNCPV_PAV.png"
+ggsave(out_path, p,
+       device = ragg::agg_png,
+       width = 8, height = 10, units = "in",
+       dpi = 800, bg = "white")
+
+# V1_Total_Plaque_Score
+m_plaque   <- lm(delta_NCPV ~ V1_Total_Plaque_Score, data = df)
+cm_list <- performance::check_model(m_plaque)   # list
+p        <- plot(cm_list) + plot_annotation(
+  title = "ΔNCPV ~ TPS_bl",
+  theme = theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+)
+out_path <- "figures/reproduced/checkmodel_deltaNCPV_TPS.png"
+ggsave(out_path, p,
+       device = ragg::agg_png,
+       width = 8, height = 10, units = "in",
+       dpi = 800, bg = "white")
